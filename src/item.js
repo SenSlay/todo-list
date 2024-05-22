@@ -1,10 +1,12 @@
-export default function todoItem(title, description, dueDate, priority, isComplete) {
+// Todo item factory function
+export default function TodoItem(title, description, dueDate, priority, isComplete = false) {
     let _title = title;
     let _description = description;
     let _dueDate = dueDate;
     let _priority = priority;
     let _isComplete = isComplete;
 
+    // Setter and getter method for each property
     const getTitle = () => _title;
     const setTitle = (newTitle) => { _title = newTitle; };
     
