@@ -1,4 +1,4 @@
 import './style.css';
-import todoItem from "./item.js";
+import todoItem from "./todoItem.js";
 import createProject, { projects } from "./projects.js";
 
