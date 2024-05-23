@@ -1,5 +1,9 @@
+// Id counter
+let idCounter = 0;
+
 // Todo item factory function
 export default function TodoItem(title, description, dueDate, priority, isComplete = false) {
+    let _id = idCounter++;
     let _title = title;
     let _description = description;
     let _dueDate = dueDate;
@@ -7,6 +11,9 @@ export default function TodoItem(title, description, dueDate, priority, isComple
     let _isComplete = isComplete;
 
     // Setter and getter method for each property
+    const getId = () => _id;
+    const setId = (newId) => { _id = newId; }; 
+
     const getTitle = () => _title;
     const setTitle = (newTitle) => { _title = newTitle; };
     
@@ -23,6 +30,9 @@ export default function TodoItem(title, description, dueDate, priority, isComple
     const toggleComplete = () => { _isComplete = !_isComplete; };
 
     return {
+        getId,
+        setId,
+
         getTitle,
         setTitle,
 
