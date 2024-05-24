@@ -1,9 +1,9 @@
 import todoItem from "./todoItem.js";
 import createProject, { projects } from "./projects.js";
 
-// Create Todo Item and push to respective project
-function createTodoItem(title, description, dueDate, priority, projectName = "Today") {
-    const todo = todoItem(title, description, dueDate, priority)
+// Create todo item and push to respective project
+function createTodoItem(title, description, dueDate, priority, projectName = "Inbox") {
+    const todo = todoItem(title, description, dueDate, priority, projectName);
 
     // Find project by name
     let project = projects.find(p => p.getName() === projectName);
@@ -17,16 +17,57 @@ function createTodoItem(title, description, dueDate, priority, projectName = "To
     project.addTodoItem(todo);
 }
 
-createTodoItem("Todo1", "Description", "Today", "High");
-createTodoItem("Todo2", "Description", "Today", "High", "Home");
-createTodoItem("Todo3", "Description", "Today", "High", "Work");
+// Delete todo Item
+function deleteTodoItem(todoItemId, projectName) {
+    // Find the project of the todo item
+    const project = projects.find(p => p.getName() === projectName);
 
-// Log all projects and their todo items
-projects.forEach(project => {
-    console.log(`Project: ${project.getName()}`);
-    project.getTodoItems().forEach(todo => {
-        console.log(`  Todo: [${todo.getId()}] ${todo.getTitle()}`);
-    });
-});
+    // If project exists, delete item
+    if (project) {
+        project.deleteTodoItem(todoItemId);
+    }
+}
 
-export default createTodoItem;
+// Edit Todo Item
+function editTodoItem(todoItemId, newTitle, newDescription, newDueDate, newPriority, oldProjectName, newProjectName) {
+    // Find the old project
+    const oldProject = projects.find(p => p.getName() === oldProjectName);
+    
+    // Check if project exists 
+    if (!oldProject) {
+        throw new Error(`Project "${oldProjectName}" not found.`);
+    }
+
+    // Find the todo item within the old project
+    const todoItem = oldProject.getTodoItems().find(item => item.getId() === todoItemId);
+
+    // Check if todo item exists in the old project
+    if (!todoItem) {
+        throw new Error(`Todo item with ID "${todoItemId}" not found in project "${oldProjectName}".`);
+    }
+
+    // Update todo item's properties
+    todoItem.setTitle(newTitle);
+    todoItem.setDescription(newDescription);
+    todoItem.setDueDate(newDueDate);
+    todoItem.setPriority(newPriority);
+
+    // If the project is changed, remove the todo item from the old project and add it to the new project
+    if (newProjectName !== oldProjectName) {
+        // Find the new project
+        const newProjectObj = projects.find(p => p.getName() === newProjectName);
+
+        // Check if new project exists
+        if (!newProjectObj) {
+            throw new Error(`Project "${newProjectName}" not found.`);
+        }
+
+        // Remove the todo item from the old project
+        oldProject.deleteTodoItem(todoItemId);
+
+        // Add the todo item to the new project
+        newProjectObj.addTodoItem(todoItem);
+    }
+}
+
+export {createTodoItem as default, deleteTodoItem, editTodoItem};

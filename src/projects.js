@@ -9,14 +9,25 @@ function Project(projectName) {
     const getName = () => _name;
     const getTodoItems = () => todoItems;
     
+    // Add todo item
     const addTodoItem = (todoItem) => {
         todoItems.push(todoItem);
+    }
+
+    // Delete todo item
+    const deleteTodoItem = (todoItemId) => {
+        // Find index of todo item
+        const index = todoItems.findIndex(item => item.getId() === todoItemId);
+
+        // If item found, delete
+        todoItems.splice(index, 1);
     }
     
     return {
         getName,
         getTodoItems,
-        addTodoItem
+        addTodoItem,
+        deleteTodoItem
     }
 }
 
@@ -29,6 +40,6 @@ function createProject(projectName) {
 }
 
 // Push default projects- Today and Home
-projects.push(Project("Today"), Project("Home"));
+projects.push(Project("Inbox"), Project("Home"));
 
 export { createProject as default, projects };

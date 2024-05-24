@@ -1,3 +1,2 @@
 import './style.css';
-import createTodoItem from "./todoFunctions.js";
-
+import createTodoItem, {deleteTodoItem, editTodoItem} from "./todoFunctions.js";

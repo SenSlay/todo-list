@@ -3,6 +3,11 @@ let idCounter = 0;
 
 // Todo item factory function
 export default function TodoItem(title, description, dueDate, priority, isComplete = false) {
+    // Check if title is filled
+    if (!title) {
+        throw new Error("Title is required");
+    }
+
     let _id = idCounter++;
     let _title = title;
     let _description = description;
@@ -12,7 +17,6 @@ export default function TodoItem(title, description, dueDate, priority, isComple
 
     // Setter and getter method for each property
     const getId = () => _id;
-    const setId = (newId) => { _id = newId; }; 
 
     const getTitle = () => _title;
     const setTitle = (newTitle) => { _title = newTitle; };
@@ -31,7 +35,6 @@ export default function TodoItem(title, description, dueDate, priority, isComple
 
     return {
         getId,
-        setId,
 
         getTitle,
         setTitle,
