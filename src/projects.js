@@ -20,7 +20,9 @@ function Project(projectName) {
         const index = todoItems.findIndex(item => item.getId() === todoItemId);
 
         // If item found, delete
-        todoItems.splice(index, 1);
+        if (index !== -1) {
+            todoItems.splice(index, 1);
+        }
     }
     
     return {
@@ -39,7 +41,18 @@ function createProject(projectName) {
     return newProject;
 }
 
+// Delete project 
+function deleteProject(projectName) {
+    // Find project's index
+    const index = projects.findIndex(p => p.getName() === projectName);
+
+    // If project is found and is not project "inbox", delete
+    if (index !== -1 && projects[index].getName() !== "Inbox") {
+        projects.splice(index, 1);
+    }
+}
+
 // Push default projects- Today and Home
 projects.push(Project("Inbox"), Project("Home"));
 
-export { createProject as default, projects };
+export {createProject as default, projects, deleteProject};

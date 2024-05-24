@@ -1,0 +1,32 @@
+* {
+    margin: 0;
+    border: 0;
+    padding: 0;
+}
+
+body {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto 1fr;
+    height: 100vh;
+}
+
+header {
+    background-color: antiquewhite;
+    grid-row: 1;
+    grid-column: 1 / -1;
+    height: 150px;
+}
+
+.side-bar {
+    background-color: beige;
+    grid-row: 2;
+    grid-column: 1;
+    width: 300px;
+}
+
+.content {
+    background-color: bisque;
+    grid-row: 2;
+    grid-column: 2;
+}

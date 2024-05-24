@@ -1,9 +1,9 @@
 import todoItem from "./todoItem.js";
-import createProject, { projects } from "./projects.js";
+import createProject, { projects , deleteProject } from "./projects.js";
 
 // Create todo item and push to respective project
 function createTodoItem(title, description, dueDate, priority, projectName = "Inbox") {
-    const todo = todoItem(title, description, dueDate, priority, projectName);
+    const todo = todoItem(title, description, dueDate, priority);
 
     // Find project by name
     let project = projects.find(p => p.getName() === projectName);
@@ -70,4 +70,12 @@ function editTodoItem(todoItemId, newTitle, newDescription, newDueDate, newPrior
     }
 }
 
-export {createTodoItem as default, deleteTodoItem, editTodoItem};
+// Toggle complete todo item
+function toggleCompleteTodoItem(todoItemId, projectName) {
+    // Find todo item
+    const todo = projects.find(p => p.getName() === projectName).getTodoItems().find(t => t.getId() === todoItemId);
+
+    todo.toggleComplete();
+}
+
+export {createTodoItem as default, deleteTodoItem, editTodoItem, toggleCompleteTodoItem};
