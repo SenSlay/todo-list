@@ -4,18 +4,103 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todo List</title>
+    <script src="https://kit.fontawesome.com/19aba0697a.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <header>
+        <h1>To - Do</h1>
 
+        <h2>User</h2>
     </header>
 
-    <div class="side-bar">
+    <div class="sidebar">
+        <div class="sidebar-content">
+            <div class="sidebar-main-container">
+                <button type="button" class="sidebar-item open-todo-modal" id="sidebar-add"><i class="fa-solid fa-circle-plus"></i> Add Task</button>
+                <div class="sidebar-item">
+                    <i class="fa-solid fa-inbox"></i>
+                    Inbox
+                    <span class="todo-count" id="inbox-count"></span>
+                </div>
+                <div class="sidebar-item">
+                    <i class="fa-solid fa-calendar-day"></i>
+                    Today
+                    <span class="todo-count" id="today-count"></span>
+                </div>
+                <div class="sidebar-item">
+                    <i class="fa-solid fa-calendar-week"></i>
+                    This Week
+                    <span class="todo-count" id="week-count"></span>
+                </div>
+            </div>
+            
+            <div class="projects-container">
+                <div id="project-label">
+                    Projects
+                    <btn type="button" id="add-project">+</btn>
+                </div>
+                <div class="sidebar-item">
+                    <i>#</i>
+                    Home
+                    <span class="todo-count"></span>
+                </div>
+            </div>
+        </div>
 
+        <div class="sidebar-footer">
+            <p>SenSlay</p>
+            <a href="https://github.com/SenSlay" target="_blank">
+                <i class="fab fa-github" aria-hidden="true" style="font-size: 20px;"></i>
+            </a>
+        </div>
     </div>
 
     <div class="content">
+        <h1 class="content-title">Inbox</h1>
 
+        <ul id="todo-items-container">
+            <li class="list-item"> 
+                <btn class="content-add-task open-todo-modal"> 
+                    <i class="fa-solid fa-circle-plus"></i>
+                    Add Task
+                </btn>
+            </li>
+        </ul>
     </div>
-<script defer src="main.js"></script></body>
-</html>
+
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <form action="" class="modal-form">
+                <textarea name="" id="" rows="1" placeholder="Task title" class="title-input" autofocus required></textarea>
+                <textarea name="" id="" rows="2" placeholder="Description" class="description-input"></textarea>
+                    <label for="due-date">Due date:
+                        <input id="due-date" type="date"    >
+                    </label>
+
+                    <label for="priority-select">Priority:
+                        <select name="" id="priority-select" required>
+                            <option disabled selected>Priority</option>
+                            <option value="High">High</option>
+                            <option value="Medium">Medium</option>
+                            <option value="Low">Low</option>
+                        </select>
+                    </label>
+
+                    <div class="form-footer">
+                        <select name="" id="projects-select">
+                            <option value="" defualt>Inbox</option>
+                            <optgroup label="Projects">
+                                <option value="">Home</option>
+                            </optgroup>
+                        </select>
+
+                        <div class="modal-btns">
+                            <button type="button" class="cancel-btn" id="cancel-todo">Cancel</button>
+                            <button type="submit" class="add-btn" id="add-todo">Add To-do</button>
+                        </div>
+                    </div>
+            </form>
+        </div>
+    </div>
+</html><script defer src="main.js"></script>
