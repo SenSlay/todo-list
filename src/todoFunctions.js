@@ -1,5 +1,5 @@
 import todoItem from "./todoItem.js";
-import createProject, { projects , deleteProject } from "./projects.js";
+import createProject, { projects } from "./projects.js";
 
 // Create todo item and push to respective project
 function createTodoItem(title, description, dueDate, priority, projectName = "Inbox") {
@@ -7,11 +7,6 @@ function createTodoItem(title, description, dueDate, priority, projectName = "In
 
     // Find project by name
     let project = projects.find(p => p.getName() === projectName);
-
-    // If project doesn't exist, create it
-    if (!project) {
-        project = createProject(projectName);
-    }
 
     // Add the todo item to respective project
     project.addTodoItem(todo);
@@ -77,5 +72,28 @@ function toggleCompleteTodoItem(todoItemId, projectName) {
 
     todo.toggleComplete();
 }
+
+function logProjects() {
+    projects.forEach((project, projectIndex) => {
+        console.log(`Project ${projectIndex + 1}: ${project.getName()}`);
+        const todoItems = project.getTodoItems();
+        if (todoItems.length === 0) {
+            console.log('  No todo items.');
+        } else {
+            todoItems.forEach((todo, todoIndex) => {
+                console.log(`  Todo ${todoIndex + 1}:`);
+                console.log(`    Title: ${todo.getTitle()}`);
+                console.log(`    Description: ${todo.getDescription()}`);
+                console.log(`    Due Date: ${todo.getDueDate()}`);
+                console.log(`    Priority: ${todo.getPriority()}`);
+            });
+        }
+    });
+}
+
+createTodoItem("Sample Todo", "lala la la  la", "test", "test");
+createTodoItem("Sample Todo", "lala la la  la", "test", "High");
+
+logProjects();
 
 export {createTodoItem as default, deleteTodoItem, editTodoItem, toggleCompleteTodoItem};
