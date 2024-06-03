@@ -1,20 +1,34 @@
 import "./style.css";
 import renderInbox from "./dom/renderInbox.js";
 import renderToday from "./dom/renderToday.js";
+import renderThisWeek from "./dom/renderThisWeek.js"
 import createTodoItem, {deleteTodoItem, editTodoItem} from "./todoFunctions.js";
 
+// Initial render
 renderInbox();
 
+// Tab-switching logic
 document.addEventListener("click", function(e) {
     const target = e.target;
 
-    if (target.classList.contains("page-btn")) {
+    // Remove all active class
+    document.querySelectorAll(".page-tab").forEach(btn => {
+        btn.classList.remove("active");
+    });
 
-        if (target.id === "Inbox") {
+    if (target.classList.contains("page-tab")) {
+
+        if (target.id === "inbox") {
+            target.classList.add("active");
             renderInbox();
         }
-        else if (target.id === "Today") {
+        else if (target.id === "today") {
+            target.classList.add("active");
             renderToday();
+        }
+        else if (target.id === "this-week") {
+            target.classList.add("active");
+            renderThisWeek();
         }
     }
 });

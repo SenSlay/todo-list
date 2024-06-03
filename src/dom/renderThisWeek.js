@@ -1,13 +1,14 @@
 import { projects } from "../projects";
 import renderTodoItems from "./renderTodoItems";
+import { isThisWeek } from "date-fns";
 
 // Render every todo item
-const renderInbox = () => {
+const renderThisWeek = () => {
     const contentTitle = document.querySelector(".content-title");
-    contentTitle.textContent = "Inbox";
+    contentTitle.textContent = "This Week";
 
-    const inboxCtn = document.getElementById("todo-items-container");
-    inboxCtn.innerHTML = "";
+    const thisWeekCtn = document.getElementById("todo-items-container");
+    thisWeekCtn.innerHTML = "";
 
     // create add task btn and append
     const addTaskBtn = document.createElement("div");
@@ -18,14 +19,17 @@ const renderInbox = () => {
     addTaskBtn.textContent = " Add Task ";
     addTaskBtn.prepend(addIcon);
 
-    inboxCtn.append(addTaskBtn);
+    thisWeekCtn.append(addTaskBtn);
 
-    // render every todo item
+    // render todo items for this week starting on monday
     projects.forEach(project => {
         project.getTodoItems().forEach(todo => {
-            renderTodoItems(inboxCtn, todo);
+
+            if (isThisWeek(new Date(todo.getDueDate()), { weekStartsOn: 1 })) {
+                renderTodoItems(thisWeekCtn, todo);
+            }
         })
     });
 }
 
-export default renderInbox;
+export default renderThisWeek;

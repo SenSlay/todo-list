@@ -21,7 +21,7 @@ const renderToday = () => {
 
     todayCtn.append(addTaskBtn);
 
-    // render todo items
+    // render todo items for today
     projects.forEach(project => {
         project.getTodoItems().forEach(todo => {
 

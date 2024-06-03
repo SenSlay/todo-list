@@ -56,6 +56,11 @@ textarea {
 #sidebar-add {
     width: 100%;
     color: #6184cc;
+    background-color: inherit;
+}
+
+.active {
+    background-color: aliceblue;
 }
 
 .sidebar-item {
@@ -63,7 +68,6 @@ textarea {
     padding: 10px;
     border-radius: 5px;
     text-align: left;
-    background-color: transparent;
     cursor: pointer;
     display: flex;
     align-items: center;
