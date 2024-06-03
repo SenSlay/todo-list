@@ -1,3 +1,5 @@
+import { format, compareAsc, isToday, isPast } from "date-fns";
+
 export default function renderTodoItems(ctn, todo) {
     const todoItem = document.createElement("div");
     todoItem.classList.add("todo-item");
@@ -39,7 +41,11 @@ export default function renderTodoItems(ctn, todo) {
     // create date and append to end body
     const date = document.createElement("p");
     date.classList.add("todo-date");
-    date.textContent = todo.getDueDate();
+    date.textContent = format(todo.getDueDate(), "MMM dd");
+
+    // Check if date is past due
+    if (compareAsc(todo.getDueDate(), format(new Date(), "yyyy-MM-dd")) === -1) date.style.color = "Red";
+    
     endBody.append(date);
 
     // create edit btn
@@ -71,7 +77,7 @@ export default function renderTodoItems(ctn, todo) {
 function getPriorityColor(priority) {
     if (priority === "High") return "Red";
 
-    else if (priority === "Medium") return "Yellow";
+    else if (priority === "Medium") return "Orange";
 
     else return "Green";
 }

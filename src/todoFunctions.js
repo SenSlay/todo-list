@@ -91,8 +91,9 @@ function logProjects() {
     });
 }
 
-createTodoItem("Sample Todo", "lala la la  la", "test", "test");
-createTodoItem("Sample Todo", "lala la la  la", "test", "High");
+createTodoItem("Sample Todo 1", "lala la la  la", "2024-06-02", "Low");
+createTodoItem("Sample Todo 2", "lala la la  la", "2023-06-02", "High");
+createTodoItem("Sample Todo 3", "lala la la  la", "2024-06-03", "Medium");
 
 logProjects();
 

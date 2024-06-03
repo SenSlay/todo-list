@@ -167,6 +167,10 @@ textarea {
     font-size: 14px;
 }
 
+.todo-date {
+    font-size: 15px;
+}
+
 .todo-item-end-body {
     display: flex;
     gap: 20px;

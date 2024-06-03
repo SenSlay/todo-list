@@ -17,17 +17,17 @@
         <div class="sidebar-content">
             <div class="sidebar-main-container">
                 <button type="button" class="sidebar-item open-todo-modal" id="sidebar-add"><i class="fa-solid fa-circle-plus"></i> Add Task</button>
-                <div class="sidebar-item">
+                <div class="sidebar-item page-btn" id="Inbox">
                     <i class="fa-solid fa-inbox"></i>
                     Inbox
                     <span class="todo-count" id="inbox-count"></span>
                 </div>
-                <div class="sidebar-item">
+                <div class="sidebar-item page-btn" id="Today">
                     <i class="fa-solid fa-calendar-day"></i>
                     Today
                     <span class="todo-count" id="today-count"></span>
                 </div>
-                <div class="sidebar-item">
+                <div class="sidebar-item page-btn">
                     <i class="fa-solid fa-calendar-week"></i>
                     This Week
                     <span class="todo-count" id="week-count"></span>
@@ -39,7 +39,7 @@
                     Projects
                     <btn type="button" id="add-project">+</btn>
                 </div>
-                <div class="sidebar-item">
+                <div class="sidebar-item page-btn">
                     <i>#</i>
                     Home
                     <span class="todo-count"></span>
@@ -59,28 +59,22 @@
         <h1 class="content-title">Inbox</h1>
 
         <ul id="todo-items-container">
-            <li class="list-item"> 
-                <btn class="content-add-task open-todo-modal"> 
-                    <i class="fa-solid fa-circle-plus"></i>
-                    Add Task
-                </btn>
-            </li>
         </ul>
     </div>
 
     <div id="myModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <form action="" class="modal-form">
-                <textarea name="" id="" rows="1" placeholder="Task title" class="title-input" autofocus required></textarea>
-                <textarea name="" id="" rows="2" placeholder="Description" class="description-input"></textarea>
+            <form class="modal-form">
+                <textarea name="title" id="title" rows="1" placeholder="Task title" class="title-input" autofocus required></textarea>
+                <textarea name="description" id="description" rows="2" placeholder="Description" class="description-input"></textarea>
                     <label for="due-date">Due date:
-                        <input id="due-date" type="date"    >
+                        <input id="due-date" name="due-date" type="date" required>
                     </label>
 
                     <label for="priority-select">Priority:
-                        <select name="" id="priority-select" required>
-                            <option disabled selected>Priority</option>
+                        <select name="priority" id="priority-select" required>
+                            <option value="" disabled selected>Priority</option>
                             <option value="High">High</option>
                             <option value="Medium">Medium</option>
                             <option value="Low">Low</option>
@@ -88,10 +82,10 @@
                     </label>
 
                     <div class="form-footer">
-                        <select name="" id="projects-select">
-                            <option value="" defualt>Inbox</option>
+                        <select name="project" id="projects-select">
+                            <option value="Inbox" defualt>Inbox</option>
                             <optgroup label="Projects">
-                                <option value="">Home</option>
+                                <option value="Home">Home</option>
                             </optgroup>
                         </select>
 

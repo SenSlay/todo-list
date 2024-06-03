@@ -1,8 +1,23 @@
 import "./style.css";
-import renderInbox from "./inbox.js";
+import renderInbox from "./dom/renderInbox.js";
+import renderToday from "./dom/renderToday.js";
 import createTodoItem, {deleteTodoItem, editTodoItem} from "./todoFunctions.js";
 
 renderInbox();
+
+document.addEventListener("click", function(e) {
+    const target = e.target;
+
+    if (target.classList.contains("page-btn")) {
+
+        if (target.id === "Inbox") {
+            renderInbox();
+        }
+        else if (target.id === "Today") {
+            renderToday();
+        }
+    }
+});
 
 // Get the modal
 var modal = document.getElementById("myModal");
@@ -26,3 +41,20 @@ document.addEventListener("click", (e) => {
 span.onclick = function() {
     modal.style.display = "none";
 }
+
+document.querySelector('.modal-form').addEventListener('submit', function(event) {
+    modal.style.display = "none";
+    event.preventDefault(); // Prevent the default form submission
+
+    const formData = new FormData(event.target);
+    const title = formData.get("title");
+    const description = formData.get("description");
+    const dueDate = formData.get("due-date");
+    const priority = formData.get("priority");
+    const project = formData.get("project");
+
+    createTodoItem(title, description, dueDate, priority, project);
+    renderInbox();
+
+    event.target.reset();
+});
