@@ -7,16 +7,20 @@ import createTodoItem, {deleteTodoItem, editTodoItem} from "./todoFunctions.js";
 // Initial render
 renderInbox();
 
-// Tab-switching logic
+// Get the modal
+const modal = document.getElementById("myModal");
+
+// Click event handlers
 document.addEventListener("click", function(e) {
     const target = e.target;
 
-    // Remove all active class
-    document.querySelectorAll(".page-tab").forEach(btn => {
-        btn.classList.remove("active");
-    });
-
+    // Tab-switching logic
     if (target.classList.contains("page-tab")) {
+        // Remove all active class
+        document.querySelectorAll(".page-tab").forEach(btn => {
+            btn.classList.remove("active");
+        });
+        
 
         if (target.id === "inbox") {
             target.classList.add("active");
@@ -31,30 +35,22 @@ document.addEventListener("click", function(e) {
             renderThisWeek();
         }
     }
-});
 
-// Get the modal
-var modal = document.getElementById("myModal");
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
-document.addEventListener("click", (e) => {
     // Open modal if btn has .add-todo
-    if (e.target.classList.contains("open-todo-modal")) {
+    if (target.classList.contains("open-todo-modal")) {
         modal.style.display = "block";
     }
 
     // Close modal if outside of the modal is clicked
-    if (e.target == modal) {
+    if (target == modal || target.classList.contains("close")) {
         modal.style.display = "none";
     }
-});
 
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-    modal.style.display = "none";
-}
+    if (target.id === "cancel-todo") {
+        modal.style.display = "none";
+        document.querySelector(".modal-form").reset();
+    }
+});
 
 document.querySelector('.modal-form').addEventListener('submit', function(event) {
     modal.style.display = "none";
