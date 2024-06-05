@@ -1,9 +1,10 @@
 import "./style.css";
 import createTodoItem, {deleteTodoItem, editTodoItem} from "./todoFunctions.js";
+import renderProjectTabs from "./dom/renderProjectTabs.js";
 import renderInbox from "./dom/renderInbox.js";
 import renderToday from "./dom/renderToday.js";
 import renderThisWeek from "./dom/renderThisWeek.js"
-import renderProjectTabs from "./dom/renderProjectTabs.js";
+import renderProjectsTodo from "./dom/renderProjectsTodo.js";
 
 // Initial render
 renderProjectTabs(); 
@@ -11,6 +12,25 @@ renderInbox();
 
 // Get the modal
 const modal = document.getElementById("myModal");
+
+// Current page id
+let currentPageId = "Inbox";
+
+// Render chosen page
+function renderPage(pageId) {
+    if (pageId === "inbox") {
+        renderInbox();
+    }
+    else if (pageId === "today") {
+        renderToday();
+    }
+    else if (pageId === "this-week") {
+        renderThisWeek();
+    }
+    else {
+        renderProjectsTodo(pageId);
+    }
+}
 
 // Click event handlers
 document.addEventListener("click", function(e) {
@@ -23,19 +43,13 @@ document.addEventListener("click", function(e) {
             btn.classList.remove("active");
         });
         
+        target.classList.add("active");
 
-        if (target.id === "inbox") {
-            target.classList.add("active");
-            renderInbox();
-        }
-        else if (target.id === "today") {
-            target.classList.add("active");
-            renderToday();
-        }
-        else if (target.id === "this-week") {
-            target.classList.add("active");
-            renderThisWeek();
-        }
+        currentPageId = target.id;
+
+        // Render chosen page
+        renderPage(target.id);
+    
     }
 
     // Open modal if btn has .add-todo
@@ -66,7 +80,7 @@ document.querySelector('.modal-form').addEventListener('submit', function(event)
     const project = formData.get("project");
 
     createTodoItem(title, description, dueDate, priority, project);
-    renderInbox();
+    renderPage(currentPageId);
 
     event.target.reset();
 });

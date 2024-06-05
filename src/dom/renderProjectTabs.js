@@ -8,6 +8,7 @@ const renderProjectTabs = () => {
     projects.filter(p => p.getId() !== projects[0].getId()).forEach((project) => {
         const pageTab = document.createElement("div");
         pageTab.classList.add("sidebar-item", "page-tab");
+        pageTab.id = project.getId();
         pageTab.textContent = project.getName();
 
         const icon = document.createElement("i");
