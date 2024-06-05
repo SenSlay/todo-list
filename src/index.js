@@ -1,10 +1,12 @@
 import "./style.css";
+import createTodoItem, {deleteTodoItem, editTodoItem} from "./todoFunctions.js";
 import renderInbox from "./dom/renderInbox.js";
 import renderToday from "./dom/renderToday.js";
 import renderThisWeek from "./dom/renderThisWeek.js"
-import createTodoItem, {deleteTodoItem, editTodoItem} from "./todoFunctions.js";
+import renderProjectTabs from "./dom/renderProjectTabs.js";
 
 // Initial render
+renderProjectTabs(); 
 renderInbox();
 
 // Get the modal
