@@ -1,4 +1,4 @@
-import { v4 as uuidv4 } from "uuid";
+import { v4 } from "uuid";
 
 // Todo item factory function
 export default function TodoItem(title, description, dueDate, priority, isComplete = false) {
@@ -7,7 +7,7 @@ export default function TodoItem(title, description, dueDate, priority, isComple
         throw new Error("Title is required");
     }
 
-    const _id = uuidv4();
+    const _id = v4();
     let _title = title;
     let _description = description;
     let _dueDate = dueDate;

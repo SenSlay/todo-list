@@ -2,20 +2,20 @@ import todoItem from "./todoItem.js";
 import createProject, { projects } from "./projects.js";
 
 // Create todo item and push to respective project
-function createTodoItem(title, description, dueDate, priority, projectName = "Inbox") {
+function createTodoItem(title, description, dueDate, priority, projectId) {
     const todo = todoItem(title, description, dueDate, priority);
 
     // Find project by name
-    let project = projects.find(p => p.getName() === projectName);
+    let project = projects.find(p => p.getId() === projectId);
 
     // Add the todo item to respective project
     project.addTodoItem(todo);
 }
 
 // Delete todo Item
-function deleteTodoItem(todoItemId, projectName) {
+function deleteTodoItem(todoItemId, projectId) {
     // Find the project of the todo item
-    const project = projects.find(p => p.getName() === projectName);
+    const project = projects.find(p => p.getId() === projectId);
 
     // If project exists, delete item
     if (project) {
@@ -24,13 +24,13 @@ function deleteTodoItem(todoItemId, projectName) {
 }
 
 // Edit Todo Item
-function editTodoItem(todoItemId, newTitle, newDescription, newDueDate, newPriority, oldProjectName, newProjectName) {
+function editTodoItem(todoItemId, newTitle, newDescription, newDueDate, newPriority, oldProjectId, newProjectId) {
     // Find the old project
-    const oldProject = projects.find(p => p.getName() === oldProjectName);
+    const oldProject = projects.find(p => p.getId() === oldProjectId);
     
     // Check if project exists 
     if (!oldProject) {
-        throw new Error(`Project "${oldProjectName}" not found.`);
+        throw new Error(`Project not found.`);
     }
 
     // Find the todo item within the old project
@@ -38,7 +38,7 @@ function editTodoItem(todoItemId, newTitle, newDescription, newDueDate, newPrior
 
     // Check if todo item exists in the old project
     if (!todoItem) {
-        throw new Error(`Todo item with ID "${todoItemId}" not found in project "${oldProjectName}".`);
+        throw new Error(`Todo item is not found in the project.`);
     }
 
     // Update todo item's properties
@@ -48,13 +48,13 @@ function editTodoItem(todoItemId, newTitle, newDescription, newDueDate, newPrior
     todoItem.setPriority(newPriority);
 
     // If the project is changed, remove the todo item from the old project and add it to the new project
-    if (newProjectName !== oldProjectName) {
+    if (newProjectId !== oldProjectId) {
         // Find the new project
-        const newProjectObj = projects.find(p => p.getName() === newProjectName);
+        const newProjectObj = projects.find(p => p.getId() === newProjectId);
 
         // Check if new project exists
         if (!newProjectObj) {
-            throw new Error(`Project "${newProjectName}" not found.`);
+            throw new Error(`Project not found.`);
         }
 
         // Remove the todo item from the old project
@@ -66,9 +66,9 @@ function editTodoItem(todoItemId, newTitle, newDescription, newDueDate, newPrior
 }
 
 // Toggle complete todo item
-function toggleCompleteTodoItem(todoItemId, projectName) {
+function toggleCompleteTodoItem(todoItemId, projectId) {
     // Find todo item
-    const todo = projects.find(p => p.getName() === projectName).getTodoItems().find(t => t.getId() === todoItemId);
+    const todo = projects.find(p => p.getId() === projectId).getTodoItems().find(t => t.getId() === todoItemId);
 
     todo.toggleComplete();
 }
@@ -91,10 +91,10 @@ function logProjects() {
     });
 }
 
-createTodoItem("Sample Todo 1", "lala la la  la", "2024-06-02", "Low");
-createTodoItem("Sample Todo 2", "lala la la  la", "2023-06-02", "High");
-createTodoItem("Sample Todo 3", "lala la la  la", "2024-06-03", "Medium");
-createTodoItem("Sample Todo 4", "lala la la  la", "2024-06-06", "Medium");
+createTodoItem("Sample Todo 1", "lala la la  la", "2024-06-02", "Low", projects[0].getId());
+createTodoItem("Sample Todo 2", "lala la la  la", "2023-06-02", "High", projects[0].getId());
+createTodoItem("Sample Todo 3", "lala la la  la", "2024-06-03", "Medium", projects[0].getId());
+createTodoItem("Sample Todo 4", "lala la la  la", "2024-06-06", "Medium", projects[0].getId());
 
 logProjects();
 

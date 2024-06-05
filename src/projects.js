@@ -1,11 +1,16 @@
+import { v4 } from "uuid";
+
 // Array of projects
 const projects = [];
 
 // Project factory function
 function Project(projectName) {
+    const id = v4();
     let _name = projectName;
     const todoItems = [];
-    
+
+    const getId = () => id;
+
     const getName = () => _name;
     const getTodoItems = () => todoItems;
     
@@ -26,6 +31,7 @@ function Project(projectName) {
     }
     
     return {
+        getId,
         getName,
         getTodoItems,
         addTodoItem,
@@ -42,17 +48,15 @@ function createProject(projectName) {
 }
 
 // Delete project 
-function deleteProject(projectName) {
+function deleteProject(projectName, projectId) {
     // Find project's index
-    const index = projects.findIndex(p => p.getName() === projectName);
+    const index = projects.findIndex(p => p.getId() === projectId);
 
-    // If project is found and is not project "inbox", delete
-    if (index !== -1 && projects[index].getName() !== "Inbox") {
-        projects.splice(index, 1);
-    }
+    projects.splice(index, 1);
 }
 
-// Push default projects- Today and Home
-projects.push(Project("Inbox"), Project("Home"));
+// Push default project- Home
+createProject("Inbox");
+createProject("Home");
 
 export {createProject as default, projects, deleteProject};
