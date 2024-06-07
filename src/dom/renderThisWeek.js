@@ -1,5 +1,5 @@
 import { projects } from "../projects";
-import renderTodoItems from "./renderTodoItems";
+import renderTodoItems from "./utils";
 import { isThisWeek } from "date-fns";
 
 // Render every todo item

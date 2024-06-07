@@ -1,6 +1,15 @@
-import { format, compareAsc, isToday, isPast } from "date-fns";
+import { format, compareAsc } from "date-fns";
 
-export default function renderTodoItems(ctn, todo) {
+// Get the color for bg 
+function getPriorityColor(priority) {
+    if (priority === "High") return "Red";
+
+    else if (priority === "Medium") return "Orange";
+
+    else return "Green";
+}
+
+const renderTodoItems = (ctn, todo) => {
     const todoItem = document.createElement("div");
     todoItem.classList.add("todo-item");
 
@@ -74,10 +83,25 @@ export default function renderTodoItems(ctn, todo) {
     ctn.prepend(todoItem);
 }
 
-function getPriorityColor(priority) {
-    if (priority === "High") return "Red";
+// Create and return an element with attributes and nested children
+function createElement(type, options = {}) {
+    const element = document.createElement(type);
 
-    else if (priority === "Medium") return "Orange";
+    // Set attributes and properties
+    for (const [key, value] of Object.entries(options)) {
+        if (key === 'innerText' || key === 'textContent') {
+            element.textContent = value;
+        } else if (key === 'innerHTML') {
+            element.innerHTML = value;
+        } else if (key === 'children' && Array.isArray(value)) {
+            // Append child elements if 'children' key is provided
+            value.forEach(child => element.appendChild(child));
+        } else {
+            element.setAttribute(key, value);
+        }
+    }
 
-    else return "Green";
+    return element;
 }
+
+export { renderTodoItems as default, createElement};

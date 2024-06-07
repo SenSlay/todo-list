@@ -99,4 +99,4 @@ createTodoItem("Sample Todo 5", "lala la la  la", "2024-06-05", "Medium", projec
 
 logProjects();
 
-export {createTodoItem as default, deleteTodoItem, editTodoItem, toggleCompleteTodoItem};
+export {createTodoItem as default, deleteTodoItem, editTodoItem, toggleCompleteTodoItem, logProjects};

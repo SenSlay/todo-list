@@ -1,16 +1,16 @@
 import { projects } from "../projects";
-import renderTodoItems from "./renderTodoItems";
+import renderTodoItems from "./utils";
 
 // Render every todo item
 const renderProjectsTodo = (projectId) => {
     // Find index of project
-    const projectIndex = projects.findIndex(p => p.getId() === projectId);
+    const projectIndex = projects.findIndex(p => p.getId() == projectId);
 
     const project = projects[projectIndex];
 
     const contentTitle = document.querySelector(".content-title");
     contentTitle.textContent = project.getName();
-
+    
     const projectCtn = document.getElementById("todo-items-container");
     projectCtn.innerHTML = "";
 

@@ -221,7 +221,6 @@ textarea {
 .modal-form {
     display: flex;
     flex-direction: column;
-    width: 400px;
 }
 
 .title-input {
@@ -251,15 +250,15 @@ input[id="due-date"], select[id="projects-select"], select[id="priority-select"]
     border-radius: 5px;
 }
 
+input[id="due-date"], select[id="priority-select"] {
+    margin-left: 10px;
+}
+
 label[for="priority-select"] {
     color: #666;
     padding-bottom: 20px;
     margin-bottom: 20px;
     border-bottom: 1px solid grey;
-}
-
-select[id="priority-select"] {
-    border-radius: 5px;
 }
 
 select[id="projects-select"] {

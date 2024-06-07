@@ -60,35 +60,7 @@
     <div id="myModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <form class="modal-form">
-                <textarea name="title" id="title" rows="1" placeholder="Task title" class="title-input" autofocus required></textarea>
-                <textarea name="description" id="description" rows="2" placeholder="Description" class="description-input"></textarea>
-                    <label for="due-date">Due date:
-                        <input id="due-date" name="due-date" type="date" required>
-                    </label>
-
-                    <label for="priority-select">Priority:
-                        <select name="priority" id="priority-select" required>
-                            <option value="" disabled selected>Priority</option>
-                            <option value="High">High</option>
-                            <option value="Medium">Medium</option>
-                            <option value="Low">Low</option>
-                        </select>
-                    </label>
-
-                    <div class="form-footer">
-                        <select name="project" id="projects-select">
-                            <option value="Inbox" defualt>Inbox</option>
-                            <optgroup label="Projects">
-                                <option value="Home">Home</option>
-                            </optgroup>
-                        </select>
-
-                        <div class="modal-btns">
-                            <button type="button" class="cancel-btn" id="cancel-todo">Cancel</button>
-                            <button type="submit" class="add-btn" id="add-todo">Add To-do</button>
-                        </div>
-                    </div>
+            <form class="modal-form">   
             </form>
         </div>
     </div>

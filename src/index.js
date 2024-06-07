@@ -1,20 +1,21 @@
 import "./style.css";
-import createTodoItem, {deleteTodoItem, editTodoItem} from "./todoFunctions.js";
+import createTodoItem from "./todoFunctions.js";
 import renderProjectTabs from "./dom/renderProjectTabs.js";
 import renderInbox from "./dom/renderInbox.js";
 import renderToday from "./dom/renderToday.js";
 import renderThisWeek from "./dom/renderThisWeek.js"
 import renderProjectsTodo from "./dom/renderProjectsTodo.js";
+import { renderTodoForm } from "./dom/modal.js";
+
+// Current page id
+let currentPageId = "inbox";
 
 // Initial render
 renderProjectTabs(); 
-renderInbox();
+renderPage(currentPageId);
 
 // Get the modal
 const modal = document.getElementById("myModal");
-
-// Current page id
-let currentPageId = "Inbox";
 
 // Render chosen page
 function renderPage(pageId) {
@@ -49,11 +50,11 @@ document.addEventListener("click", function(e) {
 
         // Render chosen page
         renderPage(target.id);
-    
     }
 
-    // Open modal if btn has .add-todo
+    // Open modal
     if (target.classList.contains("open-todo-modal")) {
+        renderTodoForm();
         modal.style.display = "block";
     }
 
@@ -77,9 +78,13 @@ document.querySelector('.modal-form').addEventListener('submit', function(event)
     const description = formData.get("description");
     const dueDate = formData.get("due-date");
     const priority = formData.get("priority");
-    const project = formData.get("project");
 
-    createTodoItem(title, description, dueDate, priority, project);
+    // Get the id attribute of the selected project option
+    const projectSelect = document.getElementById("projects-select");
+    const selectedOption = projectSelect.options[projectSelect.selectedIndex];
+    const projectId = selectedOption.id; 
+    
+    createTodoItem(title, description, dueDate, priority, projectId);
     renderPage(currentPageId);
 
     event.target.reset();
