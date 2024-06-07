@@ -2,7 +2,9 @@ import { projects } from "../projects";
 import { createElement } from "./utils";
 
 // Render add todo form 
-function renderTodoForm() {
+function renderTodoForm(currentPageId) {
+    console.log(currentPageId);
+
     const formCtn = document.querySelector(".modal-form");
     formCtn.innerHTML = "";
 
@@ -64,9 +66,16 @@ function renderTodoForm() {
 
     // Create Projects Select
     const projectsOptions = [
-        { value: 'Inbox', default: '', textContent: 'Inbox' },
+        { value: 'Inbox', id: projects[0].getId() ,textContent: 'Inbox' },
         { label: 'Projects', children: projects.filter(p => p.getId() !== projects[0].getId()).map(project => {
-            return createElement('option', { value: project.getName(), textContent: project.getName(), id: project.getId() });
+            const el = createElement('option', { value: project.getName(), textContent: project.getName(), id: project.getId() });
+
+            // If this project is the current page, add selected attribute
+            if (project.getId() === currentPageId) {
+                el.setAttribute("selected", "");
+            }
+
+            return el;
         })}
     ].map(attrs => {
         if (attrs.label) {

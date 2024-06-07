@@ -54,7 +54,7 @@ document.addEventListener("click", function(e) {
 
     // Open modal
     if (target.classList.contains("open-todo-modal")) {
-        renderTodoForm();
+        renderTodoForm(currentPageId);
         modal.style.display = "block";
     }
 
@@ -83,7 +83,7 @@ document.querySelector('.modal-form').addEventListener('submit', function(event)
     const projectSelect = document.getElementById("projects-select");
     const selectedOption = projectSelect.options[projectSelect.selectedIndex];
     const projectId = selectedOption.id; 
-    
+
     createTodoItem(title, description, dueDate, priority, projectId);
     renderPage(currentPageId);
 
