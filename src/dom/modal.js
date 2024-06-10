@@ -7,7 +7,7 @@ function renderTodoForm(currentPageId) {
 
     const formCtn = document.querySelector(".modal-form");
     formCtn.innerHTML = "";
-
+    
     // Title textarea element
     const titleTextarea = createElement("textarea" , {
         name: 'title',
@@ -18,8 +18,8 @@ function renderTodoForm(currentPageId) {
         class: 'title-input',
         autofocus: '',
         required: ''
-    });
-
+        });
+     
     // Description textarea element
     const descriptionTextarea = createElement('textarea', {
         name: 'description',
@@ -63,6 +63,12 @@ function renderTodoForm(currentPageId) {
         textContent: 'Priority:',
         children: [prioritySelect]
     });
+
+    const formHeader = createElement("div", {
+        class: "form-header",
+        children: [titleTextarea, descriptionTextarea, dueDateLabel, priorityLabel]
+    });
+
 
     // Create Projects Select
     const projectsOptions = [
@@ -121,10 +127,7 @@ function renderTodoForm(currentPageId) {
     formFooter.appendChild(modalBtnsDiv);
     
     // Append all elements to the form
-    formCtn.appendChild(titleTextarea);
-    formCtn.appendChild(descriptionTextarea);
-    formCtn.appendChild(dueDateLabel);
-    formCtn.appendChild(priorityLabel);
+    formCtn.appendChild(formHeader);
     formCtn.appendChild(formFooter);
 }
 
