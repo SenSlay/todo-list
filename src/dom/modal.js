@@ -27,7 +27,6 @@ function renderTodoForm(currentPageId) {
         id: 'title',
         placeholder: 'Task title',
         class: 'title',
-        autofocus: '',
         required: ''
         });
      
@@ -78,7 +77,7 @@ function renderTodoForm(currentPageId) {
 
     const formHeader = createElement("div", {
         class: "form-header",
-        children: [titleTextarea, descriptionTextarea, dueDateLabel, priorityLabel]
+        children: [titleInput, descriptionTextarea, dueDateLabel, priorityLabel]
     });
 
 
@@ -138,6 +137,8 @@ function renderTodoForm(currentPageId) {
     // Append all elements to the form
     formCtn.appendChild(formHeader);
     formCtn.appendChild(formFooter);
+
+    titleInput.focus();
 }
 
 // Render project form
@@ -156,7 +157,7 @@ function renderProjectForm() {
 
     const formHeader = createElement("div", {
         class: "form-header",
-        children: [titleTextarea]
+        children: [titleInput]
     });
 
     // Create Modal Buttons Div
@@ -187,6 +188,8 @@ function renderProjectForm() {
 
     formCtn.append(formHeader);
     formCtn.append(formFooter);
+
+    titleInput.focus();
 }
 
 export { renderTodoForm, renderProjectForm };
