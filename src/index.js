@@ -1,11 +1,12 @@
 import "./style.css";
-import createTodoItem from "./todoFunctions.js";
+import { createProject } from "./projects.js";
+import createTodoItem, { logProjects } from "./todoFunctions.js";
 import renderProjectTabs from "./dom/renderProjectTabs.js";
 import renderInbox from "./dom/renderInbox.js";
 import renderToday from "./dom/renderToday.js";
 import renderThisWeek from "./dom/renderThisWeek.js"
 import renderProjectsTodo from "./dom/renderProjectsTodo.js";
-import { renderTodoForm } from "./dom/modal.js";
+import { renderTodoForm, renderProjectForm } from "./dom/modal.js";
 
 // Current page id
 let currentPageId = "inbox";
@@ -33,7 +34,7 @@ function renderPage(pageId) {
     }
 }
 
-// Click event handlers
+// Clicks event handler
 document.addEventListener("click", function(e) {
     const target = e.target;
 
@@ -52,40 +53,46 @@ document.addEventListener("click", function(e) {
         renderPage(target.id);
     }
 
-    // Open modal
-    if (target.classList.contains("open-todo-modal")) {
-        renderTodoForm(currentPageId);
-        modal.style.display = "block";
-    }
+    // Open todo modal
+    if (target.classList.contains("open-todo-modal")) renderTodoForm(currentPageId);
+    
+    // Open project modal
+    else if (target.id === "project-modal-btn") renderProjectForm();
 
-    // Close modal if outside of the modal is clicked
-    if (target == modal || target.classList.contains("close")) {
-        modal.style.display = "none";
-    }
-
-    if (target.id === "cancel-todo") {
-        modal.style.display = "none";
-        document.querySelector(".modal-form").reset();
-    }
+    // Close modal
+    if (target == modal || target.classList.contains("close") || target.id === "cancel-todo") modal.style.display = "none";
 });
 
+// Forms submit handler
 document.querySelector('.modal-form').addEventListener('submit', function(event) {
     modal.style.display = "none";
+    const target = event.target;
     event.preventDefault(); // Prevent the default form submission
 
-    const formData = new FormData(event.target);
-    const title = formData.get("title");
-    const description = formData.get("description");
-    const dueDate = formData.get("due-date");
-    const priority = formData.get("priority");
+    const formData = new FormData(target);
 
-    // Get the id attribute of the selected project option
-    const projectSelect = document.getElementById("projects-select");
-    const selectedOption = projectSelect.options[projectSelect.selectedIndex];
-    const projectId = selectedOption.id; 
+    if (target.id === "project-form") {
+        const newProject = formData.get("project-title");
 
-    createTodoItem(title, description, dueDate, priority, projectId);
+        createProject(newProject);
+    }
+    else if (target.id === "todo-form") {
+        const title = formData.get("title");
+        const description = formData.get("description");
+        const dueDate = formData.get("due-date");
+        const priority = formData.get("priority");
+    
+        // Get the id attribute of the selected project option
+        const projectSelect = document.getElementById("projects-select");
+        const selectedOption = projectSelect.options[projectSelect.selectedIndex];
+        const projectId = selectedOption.id; 
+    
+        createTodoItem(title, description, dueDate, priority, projectId);
+    }
+
     renderPage(currentPageId);
+    renderProjectTabs();
+    logProjects();
 
     event.target.reset();
 });

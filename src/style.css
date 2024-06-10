@@ -97,13 +97,13 @@ textarea {
     align-items: center;
 }
 
-#add-project {
+#project-modal-btn {
     color: red;
     cursor: pointer;
     font-size: 24px;
 }
 
-#add-project:hover {
+#project-modal-btn:hover {
     color: black;
 }
 
@@ -228,15 +228,15 @@ textarea {
     padding: 20px;
 }
 
-.title-input {
+.title {
     border: none;
     outline: 0;
-    font-size: 20px;
+    font-size: 24px;
     font-weight: 600;
     margin-bottom: 5px;
 }
 
-.description-input {
+.description {
     border: none;
     outline: 0;
     font-size: 16px;
@@ -270,6 +270,7 @@ select[id="projects-select"] {
 .modal-btns {
     display: flex;
     gap: 10px;
+    margin-left: auto;
 }
 
 .cancel-btn, .add-btn {
@@ -292,10 +293,12 @@ select[id="projects-select"] {
 
 .form-footer {
     display: flex;
-    justify-content: space-between;
     padding: 20px;
     border-top: 1px solid grey;
 }
+
+/* Project modal */
+
 
 .close {
     position: absolute;

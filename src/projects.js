@@ -60,4 +60,4 @@ createProject("Inbox");
 createProject("Home");
 createProject("Work");
 
-export {createProject as default, projects, deleteProject};
+export {createProject, projects, deleteProject};

@@ -1,21 +1,32 @@
 import { projects } from "../projects";
 import { createElement } from "./utils";
 
-// Render add todo form 
-function renderTodoForm(currentPageId) {
-    console.log(currentPageId);
+// Get the modal
+const modal = document.getElementById("myModal");
 
-    const formCtn = document.querySelector(".modal-form");
+function initialRender(formCtn, id) {
+    // Reset modal form HTML content
     formCtn.innerHTML = "";
+
+    // Assign form id
+    formCtn.id = id;
+
+    // Make modal visible
+    modal.style.display = "block";
+}
+
+// Render todo form 
+function renderTodoForm(currentPageId) {
+    const formCtn = document.querySelector(".modal-form")
+
+    initialRender(formCtn, "todo-form");
     
     // Title textarea element
-    const titleTextarea = createElement("textarea" , {
+    const titleInput = createElement("input" , {
         name: 'title',
         id: 'title',
-        rows: '1',
-        cols: "40",
         placeholder: 'Task title',
-        class: 'title-input',
+        class: 'title',
         autofocus: '',
         required: ''
         });
@@ -23,10 +34,11 @@ function renderTodoForm(currentPageId) {
     // Description textarea element
     const descriptionTextarea = createElement('textarea', {
         name: 'description',
-        id: 'description',
+        id: 'description',  
         rows: '2',
+        cols: "50",
         placeholder: 'Description',
-        class: 'description-input'
+        class: 'description'
     });
 
     // Create Due Date Label and Input
@@ -97,12 +109,6 @@ function renderTodoForm(currentPageId) {
         children: projectsOptions
     });
     
-    // Create Form Footer Div
-    const formFooter = createElement('div', {
-        class: 'form-footer',
-        children: [projectsSelect]
-    });
-    
     // Create Modal Buttons Div
     const cancelBtn = createElement('button', {
         type: 'button',
@@ -122,13 +128,65 @@ function renderTodoForm(currentPageId) {
         class: 'modal-btns',
         children: [cancelBtn, addBtn]
     });
-    
-    // Append modal buttons to form footer
-    formFooter.appendChild(modalBtnsDiv);
+
+    // Create Form Footer Div
+    const formFooter = createElement('div', {
+        class: 'form-footer',
+        children: [projectsSelect, modalBtnsDiv]
+    });
     
     // Append all elements to the form
     formCtn.appendChild(formHeader);
     formCtn.appendChild(formFooter);
 }
 
-export { renderTodoForm };
+// Render project form
+function renderProjectForm() {
+    const formCtn = document.querySelector(".modal-form")
+
+    initialRender(formCtn, "project-form");
+
+    const titleInput = createElement("input", {
+        class: "title",
+        id: "project-title",
+        name: "project-title",
+        required: "",
+        placeholder: "New Project Name"
+    });
+
+    const formHeader = createElement("div", {
+        class: "form-header",
+        children: [titleTextarea]
+    });
+
+    // Create Modal Buttons Div
+    const cancelBtn = createElement('button', {
+        type: 'button',
+        class: 'cancel-btn',
+        id: 'cancel-todo',
+        textContent: 'Cancel'
+    });
+
+    const addBtn = createElement('button', {
+        type: 'submit',
+        class: 'add-btn',
+        id: 'add-todo',
+        textContent: 'Add To-do'
+    });
+    
+    const modalBtnsDiv = createElement('div', {
+        class: 'modal-btns',
+        children: [cancelBtn, addBtn]
+    });
+
+    // Create Form Footer Div
+    const formFooter = createElement('div', {
+        class: 'form-footer',
+        children: [modalBtnsDiv]
+    });
+
+    formCtn.append(formHeader);
+    formCtn.append(formFooter);
+}
+
+export { renderTodoForm, renderProjectForm };

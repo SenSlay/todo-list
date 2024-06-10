@@ -3,6 +3,9 @@ import { projects } from "../projects";
 // Render project tabs
 const renderProjectTabs = () => {
     const projectTabsCtn = document.querySelector(".projects-container");
+
+    // Clear HTML content
+    projectTabsCtn.innerHTML = "";
     
     // Loop every project except for Inbox
     projects.filter(p => p.getId() !== projects[0].getId()).forEach((project) => {
