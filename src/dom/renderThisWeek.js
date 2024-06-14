@@ -24,9 +24,9 @@ const renderThisWeek = () => {
     // render todo items for this week starting on monday
     projects.forEach(project => {
         project.getTodoItems().forEach(todo => {
-
+            // Check if todoItem's dueDate is this week
             if (isThisWeek(new Date(todo.getDueDate()), { weekStartsOn: 1 })) {
-                renderTodoItems(thisWeekCtn, todo);
+                renderTodoItems(thisWeekCtn, todo, project.getId());
             }
         })
     });

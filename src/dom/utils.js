@@ -9,10 +9,12 @@ function getPriorityColor(priority) {
     else return "Green";
 }
 
-const renderTodoItems = (ctn, todo) => {
+const renderTodoItems = (ctn, todo, projectId) => {
     const todoItem = document.createElement("div");
     todoItem.classList.add("todo-item");
-
+    todoItem.id = todo.getId();
+    todoItem.setAttribute("project-id", projectId);
+    
     // create todo priority bar
     const todoPriority = document.createElement("div");
     todoPriority.classList.add("todo-priority");
@@ -59,7 +61,7 @@ const renderTodoItems = (ctn, todo) => {
 
     // create edit btn
     const editBtn = document.createElement("button");
-    editBtn.classList.add("todo-btn");
+    editBtn.classList.add("todo-btn", "edit-btn");
 
     // create edit icon and append
     const editIcon = document.createElement("i");
@@ -70,7 +72,7 @@ const renderTodoItems = (ctn, todo) => {
     
     // create delete btn
     const deleteBtn = document.createElement("button");
-    deleteBtn.classList.add("todo-btn");
+    deleteBtn.classList.add("todo-btn",  "edit-btn");
 
     // create delete icon and append
     const deleteIcon = document.createElement("i");

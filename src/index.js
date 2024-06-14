@@ -1,22 +1,15 @@
 import "./style.css";
 import { createProject } from "./projects.js";
-import createTodoItem, { logProjects } from "./todoFunctions.js";
+import createTodoItem, { editTodoItem, deleteTodoItem, logProjects } from "./todoFunctions.js";
 import renderProjectTabs from "./dom/renderProjectTabs.js";
 import renderInbox from "./dom/renderInbox.js";
 import renderToday from "./dom/renderToday.js";
 import renderThisWeek from "./dom/renderThisWeek.js"
 import renderProjectsTodo from "./dom/renderProjectsTodo.js";
-import { renderTodoForm, renderProjectForm } from "./dom/modal.js";
+import { renderTodoForm, renderProjectForm, renderEditForm } from "./dom/modal.js";
 
 // Current page id
 let currentPageId = "inbox";
-
-// Initial render
-renderProjectTabs(); 
-renderPage(currentPageId);
-
-// Get the modal
-const modal = document.getElementById("myModal");
 
 // Render chosen page
 function renderPage(pageId) {
@@ -34,11 +27,15 @@ function renderPage(pageId) {
     }
 }
 
-// Clicks event handler
-document.addEventListener("click", function(e) {
-    const target = e.target;
+// Initial render
+renderProjectTabs(); 
+renderPage(currentPageId);
 
-    // Tab-switching logic
+// Get the modal
+const modal = document.getElementById("myModal");
+
+// Tab-switching logic
+function switchTab(target) {
     if (target.classList.contains("page-tab")) {
         // Remove all active class
         document.querySelectorAll(".page-tab").forEach(btn => {
@@ -52,19 +49,43 @@ document.addEventListener("click", function(e) {
         // Render chosen page
         renderPage(target.id);
     }
+}
+
+// Clicks event handler
+document.addEventListener("click", function(e) {
+    const target = e.target;
+
+    // Tab-switching logic
+    switchTab(target);
 
     // Open todo modal
-    if (target.classList.contains("open-todo-modal")) renderTodoForm(currentPageId);
+    if (target.classList.contains("open-todo-modal")) {
+        renderTodoForm(currentPageId);
+    }
     
     // Open project modal
-    else if (target.id === "project-modal-btn") renderProjectForm();
+    else if (target.id === "project-modal-btn") {
+        renderProjectForm();
+    }
 
     // Close modal
-    if (target == modal || target.classList.contains("close") || target.id === "cancel-todo") modal.style.display = "none";
+    else if (target == modal || target.classList.contains("close") || target.id === "cancel-todo") {
+        modal.style.display = "none";
+    }
+    else if (target.closest(".edit-btn")) {
+        const todoEl = target.closest(".todo-item");
+
+        const todoId = todoEl.getAttribute("id");
+        const projectId = todoEl.getAttribute("project-id")
+
+        renderEditForm(currentPageId, todoId, projectId);
+    }
 });
 
 // Forms submit handler
-document.querySelector('.modal-form').addEventListener('submit', function(event) {
+const modalForm = document.querySelector(".modal-form");
+
+modalForm.addEventListener('submit', function(event) {
     modal.style.display = "none";
     const target = event.target;
     event.preventDefault(); // Prevent the default form submission
@@ -76,7 +97,7 @@ document.querySelector('.modal-form').addEventListener('submit', function(event)
 
         createProject(newProject);
     }
-    else if (target.id === "todo-form") {
+    else if (target.id === "todo-form" || target.id === "edit-form") {
         const title = formData.get("title");
         const description = formData.get("description");
         const dueDate = formData.get("due-date");
@@ -87,7 +108,13 @@ document.querySelector('.modal-form').addEventListener('submit', function(event)
         const selectedOption = projectSelect.options[projectSelect.selectedIndex];
         const projectId = selectedOption.id; 
     
-        createTodoItem(title, description, dueDate, priority, projectId);
+        if (target.id === "todo-form") {
+            console.log("test");
+            createTodoItem(title, description, dueDate, priority, projectId);
+        }
+        else {
+            editTodoItem(modalForm.getAttribute("todo-id"), title, description, dueDate, priority, projectId);
+        }
     }
 
     renderPage(currentPageId);

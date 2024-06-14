@@ -24,9 +24,9 @@ const renderToday = () => {
     // render todo items for today
     projects.forEach(project => {
         project.getTodoItems().forEach(todo => {
-
+            // Check if todoItem's dueDate is today
             if (isToday(new Date(todo.getDueDate()))) {
-                renderTodoItems(todayCtn, todo);
+                renderTodoItems(todayCtn, todo, project.getId());
             }
         })
     });

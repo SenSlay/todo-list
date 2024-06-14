@@ -186,6 +186,7 @@ textarea {
     background-color: transparent;
     font-size: 22px;
     cursor: pointer;
+    z-index: auto;
 }
 
 .content-add-task {

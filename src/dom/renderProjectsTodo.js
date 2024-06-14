@@ -28,7 +28,7 @@ const renderProjectsTodo = (projectId) => {
 
     // render respective todo items of chosen project
     project.getTodoItems().forEach(todo => {
-        renderTodoItems(projectCtn, todo);
+        renderTodoItems(projectCtn, todo, project.getId());
     });
 }
 

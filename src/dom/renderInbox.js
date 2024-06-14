@@ -23,7 +23,7 @@ const renderInbox = () => {
     // render every todo item
     projects.forEach(project => {
         project.getTodoItems().forEach(todo => {
-            renderTodoItems(inboxCtn, todo);
+            renderTodoItems(inboxCtn, todo, project.getId());
         })
     });
 }

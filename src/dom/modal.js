@@ -16,7 +16,7 @@ function initialRender(formCtn, id) {
 }
 
 // Render todo form 
-function renderTodoForm(currentPageId) {
+function renderTodoForm(currentPageId, todoItem = null, projectId = null) {
     const formCtn = document.querySelector(".modal-form")
 
     initialRender(formCtn, "todo-form");
@@ -60,13 +60,26 @@ function renderTodoForm(currentPageId) {
         { value: 'High', textContent: 'High' },
         { value: 'Medium', textContent: 'Medium' },
         { value: 'Low', textContent: 'Low' }
-    ].map(attrs => createElement('option', attrs));
+    ];
+    
+    // For renderEditFunction
+    if (todoItem) {
+        delete priorityOptions[0].selected;
+
+        priorityOptions.forEach(option => {
+            if (option.value === todoItem.getPriority()) {
+                option.selected = "";        
+            }
+        })
+    };
+     
+    const priorityOptionsEls = priorityOptions.map(attrs => createElement('option', attrs));
 
     const prioritySelect = createElement('select', {
         name: 'priority',
         id: 'priority-select',
         required: '',
-        children: priorityOptions
+        children: priorityOptionsEls
     });
 
     const priorityLabel = createElement('label', {
@@ -94,7 +107,24 @@ function renderTodoForm(currentPageId) {
 
             return el;
         })}
-    ].map(attrs => {
+    ]
+
+    // For renderEditForm
+    if (todoItem) {
+        projectsOptions[1].children.forEach(projectEl => {
+            // Remove selected attribute for all project els
+            if (projectEl.hasAttribute("selected")) {
+                projectEl.removeAttribute("selected");
+            }
+
+            // Set the todoItem's current project as selected
+            if (projectEl.getAttribute("id") === projectId) {
+                projectEl.setAttribute("selected", "");
+            }
+        });
+    }
+    
+    const projectsOptionsEls = projectsOptions.map(attrs => {
         if (attrs.label) {
             const optgroup = createElement('optgroup', attrs);
             return optgroup;
@@ -105,7 +135,7 @@ function renderTodoForm(currentPageId) {
     const projectsSelect = createElement('select', {
         name: 'project',
         id: 'projects-select',
-        children: projectsOptions
+        children: projectsOptionsEls
     });
     
     // Create Modal Buttons Div
@@ -133,6 +163,17 @@ function renderTodoForm(currentPageId) {
         class: 'form-footer',
         children: [projectsSelect, modalBtnsDiv]
     });
+
+    // For renderEditForm
+    if (todoItem) {
+        titleInput.value = todoItem.getTitle();
+        descriptionTextarea.value = todoItem.getDescription();
+        dueDateInput.value = todoItem.getDueDate();
+        addBtn.id = "edit-btn";
+        addBtn.textContent = "Confirm edit";
+        formCtn.id = "edit-form";
+        formCtn.setAttribute("todo-id", todoItem.getId());
+    } 
     
     // Append all elements to the form
     formCtn.appendChild(formHeader);
@@ -192,4 +233,12 @@ function renderProjectForm() {
     titleInput.focus();
 }
 
-export { renderTodoForm, renderProjectForm };
+// Render edit form primarily using todo form elements
+function renderEditForm(currentPageId, todoItemId, projectId) { 
+    const project = projects.find(project => project.getId() === projectId);
+    const todoItem = project.getTodoItems().find(todo => todo.getId() === todoItemId);
+
+    renderTodoForm(null, todoItem, projectId);
+}
+
+export { renderTodoForm, renderProjectForm, renderEditForm };
