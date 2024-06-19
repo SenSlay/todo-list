@@ -23,43 +23,43 @@ function renderTodoForm(currentPageId, todoItem = null, projectId = null) {
     
     // Title textarea element
     const titleInput = createElement("input" , {
-        name: 'title',
-        id: 'title',
-        placeholder: 'Task title',
-        class: 'title',
-        required: ''
+        name: "title",
+        id: "title",
+        placeholder: "Task title",
+        class: "title",
+        required: ""
         });
      
     // Description textarea element
-    const descriptionTextarea = createElement('textarea', {
-        name: 'description',
-        id: 'description',  
-        rows: '2',
-        cols: "50",
-        placeholder: 'Description',
-        class: 'description'
+    const descriptionTextarea = createElement("textarea", {
+        name: "description",
+        id: "description",  
+        rows: "2",
+        cols: "40",
+        placeholder: "Description",
+        class: "description"
     });
 
     // Create Due Date Label and Input
-    const dueDateInput = createElement('input', {
-        id: 'due-date',
-        name: 'due-date',
-        type: 'date',
-        required: ''
+    const dueDateInput = createElement("input", {
+        id: "due-date",
+        name: "due-date",
+        type: "date",
+        required: ""
     });
 
-    const dueDateLabel = createElement('label', {
-        for: 'due-date',
-        textContent: 'Due date:',
+    const dueDateLabel = createElement("label", {
+        for: "due-date",
+        textContent: "Due date:",
         children: [dueDateInput]
     });
 
     // Create Priority Label and Select
     const priorityOptions = [
-        { value: '', disabled: '', selected: '', textContent: 'Priority' },
-        { value: 'High', textContent: 'High' },
-        { value: 'Medium', textContent: 'Medium' },
-        { value: 'Low', textContent: 'Low' }
+        { value: "", disabled: "", selected: "", textContent: "Priority" },
+        { value: "High", textContent: "High" },
+        { value: "Medium", textContent: "Medium" },
+        { value: "Low", textContent: "Low" }
     ];
     
     // For renderEditFunction
@@ -73,18 +73,18 @@ function renderTodoForm(currentPageId, todoItem = null, projectId = null) {
         })
     };
      
-    const priorityOptionsEls = priorityOptions.map(attrs => createElement('option', attrs));
+    const priorityOptionsEls = priorityOptions.map(attrs => createElement("option", attrs));
 
-    const prioritySelect = createElement('select', {
-        name: 'priority',
-        id: 'priority-select',
-        required: '',
+    const prioritySelect = createElement("select", {
+        name: "priority",
+        id: "priority-select",
+        required: "",
         children: priorityOptionsEls
     });
 
-    const priorityLabel = createElement('label', {
-        for: 'priority-select',
-        textContent: 'Priority:',
+    const priorityLabel = createElement("label", {
+        for: "priority-select",
+        textContent: "Priority:",
         children: [prioritySelect]
     });
 
@@ -96,9 +96,9 @@ function renderTodoForm(currentPageId, todoItem = null, projectId = null) {
 
     // Create Projects Select
     const projectsOptions = [
-        { value: 'Inbox', id: projects[0].getId() ,textContent: 'Inbox' },
-        { label: 'Projects', children: projects.filter(p => p.getId() !== projects[0].getId()).map(project => {
-            const el = createElement('option', { value: project.getName(), textContent: project.getName(), id: project.getId() });
+        { value: "Inbox", id: projects[0].getId() ,textContent: "Inbox" },
+        { label: "Projects", children: projects.filter(p => p.getId() !== projects[0].getId()).map(project => {
+            const el = createElement("option", { value: project.getName(), textContent: project.getName(), id: project.getId() });
 
             // If this project is the current page, add selected attribute
             if (project.getId() === currentPageId) {
@@ -117,7 +117,7 @@ function renderTodoForm(currentPageId, todoItem = null, projectId = null) {
                 projectEl.removeAttribute("selected");
             }
 
-            // Set the todoItem's current project as selected
+            // Set the todoItem"s current project as selected
             if (projectEl.getAttribute("id") === projectId) {
                 projectEl.setAttribute("selected", "");
             }
@@ -126,41 +126,41 @@ function renderTodoForm(currentPageId, todoItem = null, projectId = null) {
     
     const projectsOptionsEls = projectsOptions.map(attrs => {
         if (attrs.label) {
-            const optgroup = createElement('optgroup', attrs);
+            const optgroup = createElement("optgroup", attrs);
             return optgroup;
         }
-        return createElement('option', attrs);
+        return createElement("option", attrs);
     });
 
-    const projectsSelect = createElement('select', {
-        name: 'project',
-        id: 'projects-select',
+    const projectsSelect = createElement("select", {
+        name: "project",
+        id: "projects-select",
         children: projectsOptionsEls
     });
     
     // Create Modal Buttons Div
-    const cancelBtn = createElement('button', {
-        type: 'button',
-        class: 'cancel-btn',
-        id: 'cancel-todo',
-        textContent: 'Cancel'
+    const cancelBtn = createElement("button", {
+        type: "button",
+        class: "cancel-btn",
+        id: "cancel-todo",
+        textContent: "Cancel"
     });
 
-    const addBtn = createElement('button', {
-        type: 'submit',
-        class: 'add-btn',
-        id: 'add-todo',
-        textContent: 'Add To-do'
+    const addBtn = createElement("button", {
+        type: "submit",
+        class: "add-btn",
+        id: "add-todo",
+        textContent: "Add To-do"
     });
     
-    const modalBtnsDiv = createElement('div', {
-        class: 'modal-btns',
+    const modalBtnsDiv = createElement("div", {
+        class: "modal-btns",
         children: [cancelBtn, addBtn]
     });
 
     // Create Form Footer Div
-    const formFooter = createElement('div', {
-        class: 'form-footer',
+    const formFooter = createElement("div", {
+        class: "form-footer",
         children: [projectsSelect, modalBtnsDiv]
     });
 
@@ -202,28 +202,28 @@ function renderProjectForm() {
     });
 
     // Create Modal Buttons Div
-    const cancelBtn = createElement('button', {
-        type: 'button',
-        class: 'cancel-btn',
-        id: 'cancel-todo',
-        textContent: 'Cancel'
+    const cancelBtn = createElement("button", {
+        type: "button",
+        class: "cancel-btn",
+        id: "cancel-todo",
+        textContent: "Cancel"
     });
 
-    const addBtn = createElement('button', {
-        type: 'submit',
-        class: 'add-btn',
-        id: 'add-todo',
-        textContent: 'Add To-do'
+    const addBtn = createElement("button", {
+        type: "submit",
+        class: "add-btn",
+        id: "add-todo",
+        textContent: "Add To-do"
     });
     
-    const modalBtnsDiv = createElement('div', {
-        class: 'modal-btns',
+    const modalBtnsDiv = createElement("div", {
+        class: "modal-btns",
         children: [cancelBtn, addBtn]
     });
 
     // Create Form Footer Div
-    const formFooter = createElement('div', {
-        class: 'form-footer',
+    const formFooter = createElement("div", {
+        class: "form-footer",
         children: [modalBtnsDiv]
     });
 
@@ -234,11 +234,66 @@ function renderProjectForm() {
 }
 
 // Render edit form primarily using todo form elements
-function renderEditForm(currentPageId, todoItemId, projectId) { 
-    const project = projects.find(project => project.getId() === projectId);
-    const todoItem = project.getTodoItems().find(todo => todo.getId() === todoItemId);
-
+function renderEditForm(todoItem, projectId) { 
     renderTodoForm(null, todoItem, projectId);
 }
 
-export { renderTodoForm, renderProjectForm, renderEditForm };
+// Render confirm delete
+function renderConfirmDelete(todoItem, projectId) {
+    const formCtn = document.querySelector(".modal-form")
+    formCtn.setAttribute("todo-id", todoItem.getId());
+    formCtn.setAttribute("project-id", projectId);
+
+    initialRender(formCtn, "confirm-delete");
+
+    const span = createElement("span", {
+        class: "item-span",
+        textContent: todoItem.getTitle()
+    });
+
+    // Question mark after the span content
+    const q = document.createElement("span");
+    q.textContent = "?";
+
+    const confirmP = createElement("p", {
+        class: "confirm-msg",
+        textContent: "Are you sure want to delete ",
+        children: [span, q],
+    });
+
+    const formHeader = createElement("div", {
+        class: "form-header",
+        children: [confirmP]
+    });
+
+     // Create Modal Buttons Div
+     const cancelBtn = createElement("button", {
+        type: "button",
+        class: "cancel-btn",
+        id: "cancel-todo",
+        textContent: "Cancel"
+    });
+
+    const addBtn = createElement("button", {
+        type: "submit",
+        class: "add-btn",
+        id: "delete-btn",
+        textContent: "Delete"
+    });
+    
+    const modalBtnsDiv = createElement("div", {
+        class: "modal-btns",
+        children: [cancelBtn, addBtn]
+    });
+
+    // Create Form Footer Div
+    const formFooter = createElement("div", {
+        class: "form-footer",
+        children: [modalBtnsDiv]
+    });
+
+    formCtn.append(formHeader);
+    formCtn.append(formFooter);
+}
+
+export { renderTodoForm, renderProjectForm, renderEditForm, renderConfirmDelete };

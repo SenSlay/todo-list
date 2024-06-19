@@ -1,12 +1,12 @@
 import "./style.css";
 import { createProject } from "./projects.js";
-import createTodoItem, { editTodoItem, deleteTodoItem, logProjects } from "./todoFunctions.js";
+import createTodoItem, { editTodoItem, deleteTodoItem, findTodoItem, logProjects } from "./todoFunctions.js";
 import renderProjectTabs from "./dom/renderProjectTabs.js";
 import renderInbox from "./dom/renderInbox.js";
 import renderToday from "./dom/renderToday.js";
 import renderThisWeek from "./dom/renderThisWeek.js"
 import renderProjectsTodo from "./dom/renderProjectsTodo.js";
-import { renderTodoForm, renderProjectForm, renderEditForm } from "./dom/modal.js";
+import { renderTodoForm, renderProjectForm, renderEditForm, renderConfirmDelete } from "./dom/modal.js";
 
 // Current page id
 let currentPageId = "inbox";
@@ -62,12 +62,10 @@ document.addEventListener("click", function(e) {
     if (target.classList.contains("open-todo-modal")) {
         renderTodoForm(currentPageId);
     }
-    
     // Open project modal
     else if (target.id === "project-modal-btn") {
         renderProjectForm();
     }
-
     // Close modal
     else if (target == modal || target.classList.contains("close") || target.id === "cancel-todo") {
         modal.style.display = "none";
@@ -78,7 +76,14 @@ document.addEventListener("click", function(e) {
         const todoId = todoEl.getAttribute("id");
         const projectId = todoEl.getAttribute("project-id")
 
-        renderEditForm(currentPageId, todoId, projectId);
+        renderEditForm(findTodoItem(todoId), projectId);
+    }
+    else if (target.closest(".delete-btn")) {
+        const todoEl = target.closest(".todo-item");
+        const todoId = todoEl.getAttribute("id");
+        const projectId = todoEl.getAttribute("project-id")
+
+        renderConfirmDelete(findTodoItem(todoId), projectId);
     }
 });
 
@@ -90,6 +95,7 @@ modalForm.addEventListener('submit', function(event) {
     const target = event.target;
     event.preventDefault(); // Prevent the default form submission
 
+    const todoId = modalForm.getAttribute("todo-id");
     const formData = new FormData(target);
 
     if (target.id === "project-form") {
@@ -106,15 +112,18 @@ modalForm.addEventListener('submit', function(event) {
         // Get the id attribute of the selected project option
         const projectSelect = document.getElementById("projects-select");
         const selectedOption = projectSelect.options[projectSelect.selectedIndex];
-        const projectId = selectedOption.id; 
+        const selectedProjectId = selectedOption.id; 
     
         if (target.id === "todo-form") {
             console.log("test");
-            createTodoItem(title, description, dueDate, priority, projectId);
+            createTodoItem(title, description, dueDate, priority, selectedProjectId);
         }
         else {
-            editTodoItem(modalForm.getAttribute("todo-id"), title, description, dueDate, priority, projectId);
+            editTodoItem(todoId, title, description, dueDate, priority, selectedProjectId);
         }
+    }
+    else if (target.id === "confirm-delete") {
+        deleteTodoItem(todoId, modalForm.getAttribute("project-id"));
     }
 
     renderPage(currentPageId);

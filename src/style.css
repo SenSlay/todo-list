@@ -78,7 +78,7 @@ textarea {
 }
 
 .sidebar-item:hover {
-    background-color: aliceblue;
+    background-color: rgb(242, 244, 247);
 }
 
 .todo-count {
@@ -226,7 +226,24 @@ textarea {
 .form-header {
     display: flex;
     flex-direction: column;
-    padding: 20px;
+    padding: 25px;
+}
+
+.delete-form {
+    min-width: 200px;
+    padding: 30px;
+    font-size: 15px;
+    text-align: center;
+}
+
+.confirm-msg {
+    color: #666;
+    font-size: 2.3vh;
+}
+
+.item-span {
+    font-weight: 900;
+    color: black;
 }
 
 .title {

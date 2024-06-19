@@ -1,5 +1,5 @@
 import todoItem from "./todoItem.js";
-import createProject, { projects } from "./projects.js";
+import { projects } from "./projects.js";
 
 // Find project using projectId
 function findProject(projectId) {
@@ -118,4 +118,4 @@ createTodoItem("Sample Todo 5", "lala la la  la", "2024-06-05", "Medium", projec
 
 logProjects();
 
-export {createTodoItem as default, deleteTodoItem, editTodoItem, toggleCompleteTodoItem, logProjects};
+export {createTodoItem as default, deleteTodoItem, editTodoItem, toggleCompleteTodoItem, findTodoItem, findProject, logProjects};
