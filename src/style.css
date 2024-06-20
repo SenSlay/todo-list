@@ -151,9 +151,14 @@ textarea {
     margin-right: 5px;
 }
 
-.todo-circle {
+.complete-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin-right: 10px;
+    margin-left: 5px;
     cursor: pointer;
+    font-size: 24px;
 }
 
 .todo-item-start-body {

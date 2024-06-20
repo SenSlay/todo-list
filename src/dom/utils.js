@@ -10,6 +10,10 @@ function getPriorityColor(priority) {
 }
 
 const renderTodoItems = (ctn, todo, projectId) => {
+    if (todo.getIsComplete()) {
+        return;
+    }
+
     const todoItem = document.createElement("div");
     todoItem.classList.add("todo-item");
     todoItem.id = todo.getId();
@@ -22,10 +26,15 @@ const renderTodoItems = (ctn, todo, projectId) => {
     todoItem.prepend(todoPriority);
 
     // create todo circle and prepend
-    const todoCircle = document.createElement("i");
-    todoCircle.classList.add("fa-regular", "fa-circle", "todo-circle");
-    todoItem.append(todoCircle);
-
+    const circleIcon = document.createElement("i");
+    circleIcon.classList.add("fa-regular", "fa-circle");
+    
+    // complete button
+    const completeBtn = document.createElement("btn");
+    completeBtn.classList.add("complete-btn");
+    completeBtn.append(circleIcon);
+    todoItem.append(completeBtn);
+    
     // create start
     const startBody = document.createElement("div");
     startBody.classList.add("todo-item-start-body");
@@ -59,24 +68,23 @@ const renderTodoItems = (ctn, todo, projectId) => {
     
     endBody.append(date);
 
-    // create edit btn
-    const editBtn = document.createElement("button");
-    editBtn.classList.add("todo-btn", "edit-btn");
-
     // create edit icon and append
     const editIcon = document.createElement("i");
     editIcon.classList.add("fa-regular", "fa-pen-to-square");
+    
+    // create edit btn
+    const editBtn = document.createElement("button");
+    editBtn.classList.add("todo-btn", "edit-btn");
+    endBody.append(editBtn);
     editBtn.append(editIcon);
     
-    endBody.append(editBtn);
+    // create delete icon and append
+    const deleteIcon = document.createElement("i");
+    deleteIcon.classList.add("fa-regular", "fa-trash-can");
     
     // create delete btn
     const deleteBtn = document.createElement("button");
     deleteBtn.classList.add("todo-btn",  "delete-btn");
-
-    // create delete icon and append
-    const deleteIcon = document.createElement("i");
-    deleteIcon.classList.add("fa-regular", "fa-trash-can");
     deleteBtn.append(deleteIcon);
 
     endBody.append(deleteBtn);

@@ -1,6 +1,6 @@
 import "./style.css";
 import { createProject } from "./projects.js";
-import createTodoItem, { editTodoItem, deleteTodoItem, findTodoItem, logProjects } from "./todoFunctions.js";
+import createTodoItem, { editTodoItem, deleteTodoItem, findTodoItem, toggleCompleteTodoItem, logProjects } from "./todoFunctions.js";
 import renderProjectTabs from "./dom/renderProjectTabs.js";
 import renderInbox from "./dom/renderInbox.js";
 import renderToday from "./dom/renderToday.js";
@@ -47,7 +47,7 @@ function switchTab(target) {
         currentPageId = target.id;
 
         // Render chosen page
-        renderPage(target.id);
+        renderPage(currentPageId);
     }
 }
 
@@ -85,11 +85,18 @@ document.addEventListener("click", function(e) {
 
         renderConfirmDelete(findTodoItem(todoId), projectId);
     }
+    else if (target.closest(".complete-btn")) {
+        const todoEl = target.closest(".todo-item");
+        const todoId = todoEl.getAttribute("id");
+
+        toggleCompleteTodoItem(todoId);
+        renderPage(currentPageId);
+    }
 });
 
-// Forms submit handler
 const modalForm = document.querySelector(".modal-form");
 
+// Forms submit handler
 modalForm.addEventListener('submit', function(event) {
     modal.style.display = "none";
     const target = event.target;
@@ -131,4 +138,24 @@ modalForm.addEventListener('submit', function(event) {
     logProjects();
 
     event.target.reset();
+});
+
+// Mouseover handler 
+document.addEventListener("mouseover", (event) => {
+    const target = event.target;
+    
+    if (target.closest(".complete-btn")) {
+        target.className = "";
+        target.classList.add("fa-regular", "fa-circle-check")
+    }
+});
+
+// Mouseout handler 
+document.addEventListener("mouseout", (event) => {
+    const target = event.target;
+    
+    if (target.closest(".complete-btn")) {
+        target.className = "";
+        target.classList.add("fa-regular", "fa-circle")
+    }
 });
