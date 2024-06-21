@@ -48,7 +48,7 @@ function createProject(projectName) {
 }
 
 // Delete project 
-function deleteProject(projectName, projectId) {
+function deleteProject(projectId) {
     // Find project's index
     const index = projects.findIndex(p => p.getId() === projectId);
 

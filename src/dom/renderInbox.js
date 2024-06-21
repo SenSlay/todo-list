@@ -20,11 +20,9 @@ const renderInbox = () => {
 
     inboxCtn.append(addTaskBtn);
 
-    // render every todo item
-    projects.forEach(project => {
-        project.getTodoItems().forEach(todo => {
-            renderTodoItems(inboxCtn, todo, project.getId());
-        })
+    // render every inbox item
+    projects[0].getTodoItems().forEach(todo => {
+        renderTodoItems(inboxCtn, todo, projects[0].getId());
     });
 }
 

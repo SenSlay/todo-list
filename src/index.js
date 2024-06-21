@@ -7,6 +7,7 @@ import renderToday from "./dom/renderToday.js";
 import renderThisWeek from "./dom/renderThisWeek.js"
 import renderProjectsTodo from "./dom/renderProjectsTodo.js";
 import { renderTodoForm, renderProjectForm, renderEditForm, renderConfirmDelete } from "./dom/modal.js";
+import { renderTodoCount } from "./dom/utils.js";
 
 // Current page id
 let currentPageId = "inbox";
@@ -27,9 +28,15 @@ function renderPage(pageId) {
     }
 }
 
-// Initial render
-renderProjectTabs(); 
-renderPage(currentPageId);
+// Render all
+function renderAll() {
+    renderProjectTabs(); 
+    renderPage(currentPageId);
+    renderTodoCount();
+}
+
+// Initial Render
+renderAll();
 
 // Get the modal
 const modal = document.getElementById("myModal");
@@ -90,7 +97,7 @@ document.addEventListener("click", function(e) {
         const todoId = todoEl.getAttribute("id");
 
         toggleCompleteTodoItem(todoId);
-        renderPage(currentPageId);
+        renderAll();
     }
 });
 
@@ -133,8 +140,7 @@ modalForm.addEventListener('submit', function(event) {
         deleteTodoItem(todoId, modalForm.getAttribute("project-id"));
     }
 
-    renderPage(currentPageId);
-    renderProjectTabs();
+    renderAll();
     logProjects();
 
     event.target.reset();

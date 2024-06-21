@@ -1,4 +1,5 @@
-import { format, compareAsc } from "date-fns";
+import { format, compareAsc, isToday, isThisWeek } from "date-fns";
+import { projects } from "../projects";
 
 // Get the color for bg 
 function getPriorityColor(priority) {
@@ -114,4 +115,25 @@ function createElement(type, options = {}) {
     return element;
 }
 
-export { renderTodoItems as default, createElement};
+// Render todo count for inbox, today, and this week
+function renderTodoCount() {
+    const inboxCountCtn = document.getElementById("inbox-count");
+    const todayCountCtn = document.getElementById("today-count");
+    const weekCountCtn = document.getElementById("week-count");
+
+    const inboxCount = projects[0].getTodoItems().filter(todo => todo.getIsComplete() !== true).length;
+    let todayCount = 0;
+    let weekCount = 0;
+
+    // render todo items for today
+    projects.forEach(project => {
+        todayCount += project.getTodoItems().filter(todo => todo.getIsComplete() !== true && isToday(new Date(todo.getDueDate()))).length;
+        weekCount += project.getTodoItems().filter(todo => todo.getIsComplete() !== true && isThisWeek(new Date(todo.getDueDate()))).length;
+    });
+
+    inboxCountCtn.textContent = inboxCount == 0 ? "" : inboxCount;
+    todayCountCtn.textContent = todayCount == 0 ? "" : todayCount;
+    weekCountCtn.textContent = weekCount == 0 ? "" : weekCount;
+}
+
+export { renderTodoItems as default, createElement, renderTodoCount};

@@ -21,8 +21,11 @@ const renderProjectTabs = () => {
         const todoCount = document.createElement("span");
         todoCount.classList.add("todo-count");
 
-        // If item count is 0, leave textContent empty
-        todoCount.textContent = project.getTodoItems().length == 0 ? "" : project.getTodoItems().length;
+        // The project length without items that are complete
+        const projectLength = project.getTodoItems().filter(todo => todo.getIsComplete() !== true).length;
+
+        // If project length 0, leave textContent empty
+        todoCount.textContent = projectLength == 0 ? "" : projectLength;
         pageTab.append(todoCount);
 
         projectTabsCtn.append(pageTab);
