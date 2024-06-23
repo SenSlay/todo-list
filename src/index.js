@@ -1,6 +1,6 @@
 import "./style.css";
-import { createProject } from "./projects.js";
-import createTodoItem, { editTodoItem, deleteTodoItem, findTodoItem, toggleCompleteTodoItem, logProjects } from "./todoFunctions.js";
+import { createProject, deleteProject } from "./projects.js";
+import createTodoItem, { editTodoItem, deleteTodoItem, findTodoItem, findProject, toggleCompleteTodoItem, logProjects } from "./todoFunctions.js";
 import renderProjectTabs from "./dom/renderProjectTabs.js";
 import renderInbox from "./dom/renderInbox.js";
 import renderToday from "./dom/renderToday.js";
@@ -85,12 +85,20 @@ document.addEventListener("click", function(e) {
 
         renderEditForm(findTodoItem(todoId), projectId);
     }
-    else if (target.closest(".delete-btn")) {
+    else if (target.closest(".delete-todo")) {
         const todoEl = target.closest(".todo-item");
         const todoId = todoEl.getAttribute("id");
         const projectId = todoEl.getAttribute("project-id")
 
-        renderConfirmDelete(findTodoItem(todoId), projectId);
+        renderConfirmDelete(findTodoItem(todoId), findProject(projectId));
+    }
+    else if (target.closest(".delete-project")) {
+        const pageTab = target.closest(".page-tab");
+        const projectId = pageTab.id;
+
+        target.closest(".delete-project").style.display = "none";
+        pageTab.querySelector(".todo-count").style.display = "block";
+        renderConfirmDelete(null, findProject(projectId));
     }
     else if (target.closest(".complete-btn")) {
         const todoEl = target.closest(".todo-item");
@@ -136,8 +144,12 @@ modalForm.addEventListener('submit', function(event) {
             editTodoItem(todoId, title, description, dueDate, priority, selectedProjectId);
         }
     }
-    else if (target.id === "confirm-delete") {
+    else if (target.id === "confirm-delete-todo") {
         deleteTodoItem(todoId, modalForm.getAttribute("project-id"));
+    }
+    else if (target.id === "confirm-delete-project") {
+        deleteProject(modalForm.getAttribute("project-id"));
+        currentPageId = "inbox";
     }
 
     renderAll();
@@ -154,14 +166,33 @@ document.addEventListener("mouseover", (event) => {
         target.className = "";
         target.classList.add("fa-regular", "fa-circle-check")
     }
+    else if (target.closest(".page-tab")) {
+        const deleteBtn = target.querySelector(".delete-project");
+        const todoCount = target.querySelector(".todo-count");
+        
+        if (deleteBtn) {
+            deleteBtn.style.display = "block";
+            todoCount.style.display = "none";
+        }
+    };
 });
 
 // Mouseout handler 
 document.addEventListener("mouseout", (event) => {
     const target = event.target;
+    const relatedTarget = event.relatedTarget;
     
     if (target.closest(".complete-btn")) {
         target.className = "";
         target.classList.add("fa-regular", "fa-circle")
     }
+    else if (target.closest(".page-tab")) {
+        const deleteBtn = target.querySelector(".delete-project");
+        const todoCount = target.querySelector(".todo-count");
+        
+        if (deleteBtn && !target.contains(relatedTarget)) {
+            deleteBtn.style.display = "none";
+            todoCount.style.display = "block";
+        }
+    };
 });

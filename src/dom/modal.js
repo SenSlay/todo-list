@@ -239,21 +239,23 @@ function renderEditForm(todoItem, projectId) {
 }
 
 // Render confirm delete
-function renderConfirmDelete(todoItem, projectId) {
+function renderConfirmDelete(todoItem = null, project) {
     const formCtn = document.querySelector(".modal-form")
-    formCtn.setAttribute("todo-id", todoItem.getId());
-    formCtn.setAttribute("project-id", projectId);
+    if (todoItem) {
+        formCtn.setAttribute("todo-id", todoItem.getId());
+    }
+    formCtn.setAttribute("project-id", project.getId());
 
-    initialRender(formCtn, "confirm-delete");
+    initialRender(formCtn, todoItem !== null ? "confirm-delete-todo" : "confirm-delete-project");
 
     const span = createElement("span", {
         class: "item-span",
-        textContent: todoItem.getTitle()
+        textContent: todoItem !== null ? todoItem.getTitle() : project.getName()
     });
 
     // Question mark after the span content
     const q = document.createElement("span");
-    q.textContent = "?";
+    q.textContent = todoItem !== null ? "?" : " and all its tasks?";
 
     const confirmP = createElement("p", {
         class: "confirm-msg",
@@ -277,7 +279,7 @@ function renderConfirmDelete(todoItem, projectId) {
     const addBtn = createElement("button", {
         type: "submit",
         class: "add-btn",
-        id: "delete-btn",
+        id: "delete-todo",
         textContent: "Delete"
     });
     

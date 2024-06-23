@@ -81,10 +81,18 @@ textarea {
     background-color: rgb(242, 244, 247);
 }
 
+.tab-name {
+    margin-right: auto;
+}
+
 .todo-count {
-    margin-left: auto;
     font-size: 14px;
     color: #666;
+}
+
+.delete-project {
+    color: red;
+    display: none;
 }
 
 #project-label {
@@ -192,6 +200,10 @@ textarea {
     font-size: 22px;
     cursor: pointer;
     z-index: auto;
+}
+
+.delete-todo {
+    color: red;
 }
 
 .content-add-task {

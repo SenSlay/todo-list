@@ -85,7 +85,7 @@ const renderTodoItems = (ctn, todo, projectId) => {
     
     // create delete btn
     const deleteBtn = document.createElement("button");
-    deleteBtn.classList.add("todo-btn",  "delete-btn");
+    deleteBtn.classList.add("todo-btn",  "delete-todo");
     deleteBtn.append(deleteIcon);
 
     endBody.append(deleteBtn);
