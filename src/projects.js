@@ -1,7 +1,8 @@
 import { v4 } from "uuid";
+import { loadProjects } from "./storageUtils";
 
 // Array of projects
-const projects = [];
+const projects = loadProjects();
 
 // Project factory function
 function Project(projectName) {
@@ -55,9 +56,4 @@ function deleteProject(projectId) {
     projects.splice(index, 1);
 }
 
-// Push default project- Inbox and Home
-createProject("Inbox");
-createProject("Home");
-createProject("Work");
-
-export {createProject, projects, deleteProject};
+export {createProject, projects, deleteProject, Project};

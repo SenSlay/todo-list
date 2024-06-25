@@ -15,7 +15,7 @@ const renderProjectsTodo = (projectId) => {
     projectCtn.innerHTML = "";
 
     // create add task btn and append
-    const addTaskBtn = document.createElement("div");
+    const addTaskBtn = document.createElement("button");
     addTaskBtn.classList.add("content-add-task", "open-todo-modal");
 
     const addIcon = document.createElement("i");

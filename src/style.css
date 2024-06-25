@@ -5,6 +5,7 @@
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     --main-grey: #666;
     --main-color: #92a7d1;
+    --btn-color: #6184cc;
 }
 
 body {
@@ -50,20 +51,23 @@ textarea {
 }
 
 .sidebar-main-container {
+    display: flex;
+    flex-direction: column;
     margin-bottom: 20px;
 }
 
 #sidebar-add {
     width: 100%;
-    color: #6184cc;
+    color: var(--btn-color);
     background-color: inherit;
 }
 
 .active {
-    background-color: aliceblue;
+    background-color: rgb(254, 254, 255)!important;
 }
 
 .sidebar-item {
+    flex: 1;
     font-size: 20px;
     padding: 10px;
     border-radius: 5px;
@@ -71,14 +75,15 @@ textarea {
     cursor: pointer;
     display: flex;
     align-items: center;
+    background-color: inherit;
 }
 
 .sidebar-item > i {
     margin-right: 10px;
 }
 
-.sidebar-item:hover {
-    background-color: rgb(242, 244, 247);
+.sidebar-item:hover, #sidebar-add:hover {
+    background-color: #eceffa;
 }
 
 .tab-name {
@@ -115,6 +120,11 @@ textarea {
     color: black;
 }
 
+.projects-container {
+    display: flex;
+    flex-direction: column;
+}
+
 .sidebar-footer {
     display: flex;
     justify-content: center;
@@ -142,6 +152,11 @@ textarea {
     display: flex;
 }
 
+#todo-items-container {
+    display: flex;
+    flex-direction: column;
+}
+
 .todo-item {
     display: grid;
     grid-template-columns: auto auto 1fr auto;
@@ -155,7 +170,7 @@ textarea {
     display: block;
     width: 3px;
     height: 100%;
-    background-color: #6184cc;
+    background-color: var(--btn-color);
     margin-right: 5px;
 }
 
@@ -208,11 +223,16 @@ textarea {
 
 .content-add-task {
     padding: 10px 15px 10px 0px;
-    color: #6184cc;
+    color: #91a2c3;
     flex: 1;
     text-align: center;
     cursor: pointer;
     font-size: 18px;
+    background-color: inherit;
+}
+
+.content-add-task:hover {
+    color: #416fcb;
 }
 
 /* Modal */
@@ -321,9 +341,17 @@ select[id="projects-select"] {
     color: #111;
 }
 
+.cancel-btn:hover {
+    background-color: rgb(253, 158, 158);
+}
+
 .add-btn {
-    background-color: var(--main-color);
+    background-color: #4973c7;
     color: white;
+}
+
+.add-btn:hover {
+    background-color: #2b60c9;
 }
 
 .form-footer {

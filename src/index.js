@@ -1,5 +1,6 @@
 import "./style.css";
-import { createProject, deleteProject } from "./projects.js";
+import { createProject, deleteProject, projects } from "./projects.js";
+import { saveProjects } from "./storageUtils.js";
 import createTodoItem, { editTodoItem, deleteTodoItem, findTodoItem, findProject, toggleCompleteTodoItem, logProjects } from "./todoFunctions.js";
 import renderProjectTabs from "./dom/renderProjectTabs.js";
 import renderInbox from "./dom/renderInbox.js";
@@ -10,7 +11,7 @@ import { renderTodoForm, renderProjectForm, renderEditForm, renderConfirmDelete 
 import { renderTodoCount } from "./dom/utils.js";
 
 // Current page id
-let currentPageId = "inbox";
+let currentPageId = "today";
 
 // Render chosen page
 function renderPage(pageId) {
@@ -153,6 +154,7 @@ modalForm.addEventListener('submit', function(event) {
     }
 
     renderAll();
+    saveProjects(projects);
     logProjects();
 
     event.target.reset();

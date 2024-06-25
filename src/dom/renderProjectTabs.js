@@ -32,7 +32,7 @@ const renderProjectTabs = () => {
         deleteBtn.classList.add("delete-project");
         deleteBtn.append(deleteIcon);
 
-        const pageTab = document.createElement("div");
+        const pageTab = document.createElement("button");
         pageTab.classList.add("sidebar-item", "page-tab");
         pageTab.id = project.getId();
 

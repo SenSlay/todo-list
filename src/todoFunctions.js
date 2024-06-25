@@ -110,12 +110,6 @@ function logProjects() {
     });
 }
 
-createTodoItem("Sample Todo 1", "lala la la  la", "2024-06-02", "Low", projects[0].getId());
-createTodoItem("Sample Todo 2", "lala la la  la", "2023-06-02", "High", projects[1].getId());
-createTodoItem("Sample Todo 3", "lala la la  la", "2024-06-03", "Medium", projects[1].getId());
-createTodoItem("Sample Todo 4", "lala la la  la", "2024-06-21", "Medium", projects[0].getId());
-createTodoItem("Sample Todo 5", "lala la la  la", "2024-06-05", "Medium", projects[2].getId());
-
 logProjects();
 
 export {createTodoItem as default, deleteTodoItem, editTodoItem, toggleCompleteTodoItem, findTodoItem, findProject, logProjects};
