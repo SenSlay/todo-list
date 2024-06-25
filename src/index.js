@@ -43,16 +43,18 @@ renderAll();
 const modal = document.getElementById("myModal");
 
 // Tab-switching logic
-function switchTab(target) {
-    if (target.classList.contains("page-tab")) {
+function switchTab(e) {
+    if (e.target.classList.contains("page-tab") || !e.target.contains(e.relatedTarget)) {
         // Remove all active class
         document.querySelectorAll(".page-tab").forEach(btn => {
             btn.classList.remove("active");
         });
-        
-        target.classList.add("active");
 
-        currentPageId = target.id;
+        const pageTab = e.target.closest(".page-tab");
+        
+        pageTab.classList.add("active");
+
+        currentPageId = pageTab.id;
 
         // Render chosen page
         renderPage(currentPageId);
@@ -63,11 +65,11 @@ function switchTab(target) {
 document.addEventListener("click", function(e) {
     const target = e.target;
 
-    // Tab-switching logic
-    switchTab(target);
-
+    if (target.closest(".page-tab")) {
+        switchTab(e);
+    }
     // Open todo modal
-    if (target.classList.contains("open-todo-modal")) {
+    else if (target.classList.contains("open-todo-modal")) {
         renderTodoForm(currentPageId);
     }
     // Open project modal
