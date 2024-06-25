@@ -38,8 +38,6 @@ function deserializeProject(serializedProject) {
 function saveProjects(projects) {
     const serializedProjects = projects.map(project => serializeProject(project));
 
-    console.log(serializedProjects);
-
     localStorage.setItem("projects", JSON.stringify(serializedProjects));
 };
 

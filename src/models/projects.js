@@ -56,4 +56,8 @@ function deleteProject(projectId) {
     projects.splice(index, 1);
 }
 
+// Push default inbox
+createProject("Inbox");
+createProject("Home");
+
 export {createProject, projects, deleteProject, Project};
