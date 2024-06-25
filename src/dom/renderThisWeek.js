@@ -1,5 +1,5 @@
-import { projects } from "../projects";
-import renderTodoItems from "./utils";
+import { projects } from "../models/projects";
+import renderTodoItems from "../utils/domUtils";
 import { isThisWeek } from "date-fns";
 
 // Render every todo item

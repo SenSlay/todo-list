@@ -1,5 +1,5 @@
-import todoItem from "./todoItem.js";
-import { projects } from "./projects.js";
+import todoItem from "../models/todoItem.js";
+import { projects } from "../models/projects.js";
 
 // Find project using projectId
 function findProject(projectId) {

@@ -1,5 +1,5 @@
 import { format, compareAsc, isToday, isThisWeek } from "date-fns";
-import { projects } from "../projects";
+import { projects } from "../models/projects";
 
 // Get the color for bg 
 function getPriorityColor(priority) {

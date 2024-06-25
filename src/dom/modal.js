@@ -1,5 +1,5 @@
-import { projects } from "../projects";
-import { createElement } from "./utils";
+import { projects } from "../models/projects";
+import { createElement } from "../utils/domUtils";
 
 // Get the modal
 const modal = document.getElementById("myModal");

@@ -1,14 +1,14 @@
 import "./style.css";
-import { createProject, deleteProject, projects } from "./projects.js";
-import { saveProjects } from "./storageUtils.js";
-import createTodoItem, { editTodoItem, deleteTodoItem, findTodoItem, findProject, toggleCompleteTodoItem, logProjects } from "./todoFunctions.js";
+import { createProject, deleteProject, projects } from "./models/projects.js";
+import { saveProjects } from "./utils/storageUtils.js";
+import createTodoItem, { editTodoItem, deleteTodoItem, findTodoItem, findProject, toggleCompleteTodoItem, logProjects } from "./utils/todoUtils.js";
 import renderProjectTabs from "./dom/renderProjectTabs.js";
 import renderInbox from "./dom/renderInbox.js";
 import renderToday from "./dom/renderToday.js";
 import renderThisWeek from "./dom/renderThisWeek.js"
 import renderProjectsTodo from "./dom/renderProjectsTodo.js";
 import { renderTodoForm, renderProjectForm, renderEditForm, renderConfirmDelete } from "./dom/modal.js";
-import { renderTodoCount } from "./dom/utils.js";
+import { renderTodoCount } from "./utils/domUtils.js";
 
 // Current page id
 let currentPageId = "today";

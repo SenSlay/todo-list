@@ -1,4 +1,4 @@
-import { projects } from "../projects";
+import { projects } from "../models/projects";
 
 // Render project tabs
 const renderProjectTabs = () => {

@@ -38,6 +38,12 @@ textarea {
     resize: none;
 }
 
+.header-title {
+    color: white;
+    font-weight: 700;
+    font-size: 40px;
+}
+
 /* Side bar */
 .sidebar {
     display: flex;

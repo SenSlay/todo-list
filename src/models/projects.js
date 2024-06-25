@@ -1,5 +1,5 @@
 import { v4 } from "uuid";
-import { loadProjects } from "./storageUtils";
+import { loadProjects } from "../utils/storageUtils";
 
 // Array of projects
 const projects = loadProjects();

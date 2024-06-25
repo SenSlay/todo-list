@@ -1,5 +1,5 @@
-import { Project } from "./projects";
-import TodoItem from "./todoItem";
+import { Project } from "../models/projects";
+import TodoItem from "../models/todoItem";
 
 // Serialization for project
 function serializeProject(project) {
@@ -55,4 +55,4 @@ function loadProjects() {
     return [];
 };
 
-export {saveProjects, loadProjects, serializeProject, deserializeProject}
+export {saveProjects, loadProjects}

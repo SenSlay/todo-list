@@ -1,5 +1,5 @@
-import { projects } from "../projects";
-import renderTodoItems from "./utils";
+import { projects } from "../models/projects";
+import renderTodoItems from "../utils/domUtils";
 
 // Render every todo item
 const renderProjectsTodo = (projectId) => {
