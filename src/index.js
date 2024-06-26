@@ -44,29 +44,42 @@ const modal = document.getElementById("myModal");
 
 // Tab-switching logic
 function switchTab(e) {
-    if (e.target.classList.contains("page-tab") || !e.target.contains(e.relatedTarget)) {
-        // Remove all active class
-        document.querySelectorAll(".page-tab").forEach(btn => {
-            btn.classList.remove("active");
-        });
+    // Remove all active class
+    document.querySelectorAll(".page-tab").forEach(btn => {
+        btn.classList.remove("active");
+    });
 
-        const pageTab = e.target.closest(".page-tab");
-        
-        pageTab.classList.add("active");
+    const pageTab = e.target.closest(".page-tab");
+    
+    pageTab.classList.add("active");
 
-        currentPageId = pageTab.id;
+    currentPageId = pageTab.id;
 
-        // Render chosen page
-        renderPage(currentPageId);
-    }
+    // Render chosen page
+    renderPage(currentPageId);
 }
 
 // Clicks event handler
 document.addEventListener("click", function(e) {
     const target = e.target;
 
+    // Open delete project modal
+    if (target.closest(".delete-project")) {
+        const pageTab = target.closest(".page-tab");
+        const projectId = pageTab.id;
+
+        target.closest(".delete-project").style.display = "none";
+        pageTab.querySelector(".todo-count").style.display = "block";
+        renderConfirmDelete(null, findProject(projectId));
+    }
+
+    // Switch tab
     if (target.closest(".page-tab")) {
-        switchTab(e);
+        const deleteProjectBtn = target.closest(".page-tab").querySelector('.delete-project');
+        
+        if (!deleteProjectBtn || !deleteProjectBtn.contains(target)) {
+            switchTab(e);
+        }
     }
     // Open todo modal
     else if (target.classList.contains("open-todo-modal")) {
@@ -94,14 +107,6 @@ document.addEventListener("click", function(e) {
         const projectId = todoEl.getAttribute("project-id")
 
         renderConfirmDelete(findTodoItem(todoId), findProject(projectId));
-    }
-    else if (target.closest(".delete-project")) {
-        const pageTab = target.closest(".page-tab");
-        const projectId = pageTab.id;
-
-        target.closest(".delete-project").style.display = "none";
-        pageTab.querySelector(".todo-count").style.display = "block";
-        renderConfirmDelete(null, findProject(projectId));
     }
     else if (target.closest(".complete-btn")) {
         const todoEl = target.closest(".todo-item");
@@ -140,7 +145,6 @@ modalForm.addEventListener('submit', function(event) {
         const selectedProjectId = selectedOption.id; 
     
         if (target.id === "todo-form") {
-            console.log("test");
             createTodoItem(title, description, dueDate, priority, selectedProjectId);
         }
         else {
