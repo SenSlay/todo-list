@@ -8,11 +8,18 @@
     --btn-color: #6184cc;
 }
 
+html {
+    height: 100%;
+}
+
 body {
     display: grid;
     grid-template-columns: auto 1fr;
     grid-template-rows: auto 1fr;
-    height: 100vh;
+    height: 100%;
+    overflow: hidden;
+    max-height: 100%;
+    box-sizing: border-box;
 }
 
 a {
@@ -54,6 +61,7 @@ textarea {
     width: 250px;
     padding: 30px 20px;
     box-sizing: border-box;
+    flex: 1;
 }
 
 .sidebar-main-container {
@@ -73,7 +81,7 @@ textarea {
 }
 
 .sidebar-item {
-    flex: 1;
+    flex: 0 1;
     font-size: 20px;
     padding: 10px;
     border-radius: 5px;
@@ -104,7 +112,7 @@ textarea {
 .delete-project {
     color: red;
     display: none;
-    font-size: 22px;
+    font-size: 20px;
 }
 
 #project-label {
@@ -130,6 +138,8 @@ textarea {
 .projects-container {
     display: flex;
     flex-direction: column;
+    height: 420px;
+    overflow: auto;
 }
 
 .sidebar-footer {
@@ -148,6 +158,9 @@ textarea {
     grid-row: 2;
     grid-column: 2;
     padding: 30px 8vw; 
+    overflow: auto;
+    height: 100%;
+    box-sizing: border-box;
 }
 
 .content-title {
@@ -162,6 +175,7 @@ textarea {
 #todo-items-container {
     display: flex;
     flex-direction: column;
+    justify-content: center;
 }
 
 .todo-item {
@@ -229,13 +243,14 @@ textarea {
 }
 
 .content-add-task {
-    padding: 10px 15px 10px 0px;
+    padding: 10px;
     color: #91a2c3;
-    flex: 1;
+    width: 150px;
     text-align: center;
     cursor: pointer;
     font-size: 18px;
     background-color: inherit;
+    align-self: center;
 }
 
 .content-add-task:hover {
@@ -251,6 +266,7 @@ textarea {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1;
 }
 
 .modal-content {
@@ -368,8 +384,6 @@ select[id="projects-select"] {
 }
 
 /* Project modal */
-
-
 .close {
     position: absolute;
     top: 0px;
@@ -384,4 +398,78 @@ select[id="projects-select"] {
     color: black;
     text-decoration: none;
     cursor: pointer;
+}
+
+/* The sidepanel menu */
+.sidepanel-container {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1;
+    overflow: hidden;
+}
+
+.sidepanel {
+    background-color: #fff;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 250px;
+    background-color: #c4d2ef; 
+    overflow: hidden;
+    height: 100%;
+}
+
+.sidepanel-header {
+    display: flex;
+    padding: 10px;
+}
+
+/* Position and style the close button (top right corner) */
+.close-btn {
+    font-size: 36px;
+    cursor: pointer;
+    color: #818181;
+    background-color: inherit;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sidepanel .close-btn:hover {
+    color: black;
+}
+
+/* Style the button that is used to open the sidepanel */
+.open-btn {
+    display: none;
+    font-size: 25px;
+    cursor: pointer;
+    background-color: #dde2ee;
+    color: #818181;
+    padding: 5px 15px;
+    border: none;
+    border-radius: 10px;
+}
+  
+.open-btn:hover {
+    background-color: #ccd7f0;
+}
+
+
+@media screen and (max-width: 768px) {
+    .open-btn {
+        display: block;
+    }
+
+    .sidebar {
+        display: none;
+    }
 }

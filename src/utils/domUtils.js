@@ -117,9 +117,9 @@ function createElement(type, options = {}) {
 
 // Render todo count for inbox, today, and this week
 function renderTodoCount() {
-    const inboxCountCtn = document.getElementById("inbox-count");
-    const todayCountCtn = document.getElementById("today-count");
-    const weekCountCtn = document.getElementById("week-count");
+    const inboxCountCtns = document.querySelectorAll(".inbox-count");
+    const todayCountCtns = document.querySelectorAll(".today-count");
+    const weekCountCtns = document.querySelectorAll(".week-count");
 
     const inboxCount = projects[0].getTodoItems().filter(todo => todo.getIsComplete() !== true).length;
     let todayCount = 0;
@@ -131,9 +131,18 @@ function renderTodoCount() {
         weekCount += project.getTodoItems().filter(todo => todo.getIsComplete() !== true && isThisWeek(new Date(todo.getDueDate()))).length;
     });
 
-    inboxCountCtn.textContent = inboxCount == 0 ? "" : inboxCount;
-    todayCountCtn.textContent = todayCount == 0 ? "" : todayCount;
-    weekCountCtn.textContent = weekCount == 0 ? "" : weekCount;
+    // Update the text content for each count container
+    inboxCountCtns.forEach(ctn => {
+        ctn.textContent = inboxCount === 0 ? "" : inboxCount;
+    });
+
+    todayCountCtns.forEach(ctn => {
+        ctn.textContent = todayCount === 0 ? "" : todayCount;
+    });
+
+    weekCountCtns.forEach(ctn => {
+        ctn.textContent = weekCount === 0 ? "" : weekCount;
+    });
 }
 
 export { renderTodoItems as default, createElement, renderTodoCount};

@@ -9,7 +9,52 @@
 <body>
     <header>
         <h1 class="header-title">TO-DO</h1>
+
+        <button class="open-btn">&#9776;</button>
     </header>
+
+    <div id="mySidepanel" class="sidepanel-container">
+        <div class="sidepanel">
+            <div class="sidepanel-header"> 
+                <button type="button" class="close-btn">&times;</button>
+            </div>
+            <div class="sidebar-content">
+                <div class="sidebar-main-container">
+                    <button type="button" class="sidebar-item open-todo-modal" id="sidebar-add"><i class="fa-solid fa-circle-plus"></i> Add Task</button>
+                    <button type="button" class="sidebar-item page-tab" id="inbox">
+                        <i class="fa-solid fa-inbox"></i>
+                        <p class="tab-name">Inbox</p>
+                        <span class="todo-count inbox-count"></span>
+                    </button>
+                    <button class="sidebar-item page-tab active" id="today">
+                        <i class="fa-solid fa-calendar-day"></i>
+                        <p class="tab-name">Today</p>
+                        <span class="todo-count today-count"></span>
+                    </button>
+                    <button class="sidebar-item page-tab" id="this-week">
+                        <i class="fa-solid fa-calendar-week"></i>
+                        <p class="tab-name">This Week</p>
+                        <span class="todo-count week-count"></span>
+                    </button>
+                </div>
+                
+                <div class="sidebar-projects">
+                    <div id="project-label">
+                        Projects
+                        <btn type="button" id="project-modal-btn">+</btn>
+                    </div>
+                    <div class="projects-container"></div>
+                </div>
+
+                <div class="sidebar-footer">
+                    <p>SenSlay</p>
+                    <a href="https://github.com/SenSlay" target="_blank">
+                        <i class="fab fa-github" aria-hidden="true" style="font-size: 20px;"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="sidebar">
         <div class="sidebar-content">
@@ -18,17 +63,17 @@
                 <button type="button" class="sidebar-item page-tab" id="inbox">
                     <i class="fa-solid fa-inbox"></i>
                     <p class="tab-name">Inbox</p>
-                    <span class="todo-count" id="inbox-count"></span>
+                    <span class="todo-count inbox-count"></span>
                 </button>
                 <button class="sidebar-item page-tab active" id="today">
                     <i class="fa-solid fa-calendar-day"></i>
                     <p class="tab-name">Today</p>
-                    <span class="todo-count" id="today-count"></span>
+                    <span class="todo-count today-count"></span>
                 </button>
                 <button class="sidebar-item page-tab" id="this-week">
                     <i class="fa-solid fa-calendar-week"></i>
                     <p class="tab-name">This Week</p>
-                    <span class="todo-count" id="week-count"></span>
+                    <span class="todo-count week-count"></span>
                 </button>
             </div>
             

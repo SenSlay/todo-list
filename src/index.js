@@ -89,10 +89,6 @@ document.addEventListener("click", function(e) {
     else if (target.id === "project-modal-btn") {
         renderProjectForm();
     }
-    // Close modal
-    else if (target == modal || target.classList.contains("close") || target.id === "cancel-todo") {
-        modal.style.display = "none";
-    }
     else if (target.closest(".edit-btn")) {
         const todoEl = target.closest(".todo-item");
 
@@ -107,13 +103,25 @@ document.addEventListener("click", function(e) {
         const projectId = todoEl.getAttribute("project-id")
 
         renderConfirmDelete(findTodoItem(todoId), findProject(projectId));
-    }
+    } 
     else if (target.closest(".complete-btn")) {
         const todoEl = target.closest(".todo-item");
         const todoId = todoEl.getAttribute("id");
 
         toggleCompleteTodoItem(todoId);
         renderAll();
+    }     
+    // Close modal
+    else if (target == modal || target.classList.contains("close") || target.id === "cancel-todo") {
+        modal.style.display = "none";
+    }
+    // Open sidepanel 
+    else if (target.closest(".open-btn")) {
+        document.querySelector(".sidepanel-container").style.display = "block";
+    }
+    // Close sidepanel
+    else if (target.closest(".close-btn") || target.classList.contains("sidepanel-container")) {
+        document.querySelector(".sidepanel-container").style.display= "none";
     }
 });
 
