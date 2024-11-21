@@ -212,3 +212,35 @@ document.addEventListener("mouseout", (event) => {
         }
     };
 });
+
+(function messageForHer() {
+    // Select the .header-title element
+   const headerTitle = document.querySelector('.header-title');
+   
+   // Initialize variables to track clicks and time
+   let clickCount = 0;
+   let timeout;
+   
+   // Function to handle the action after 3 clicks
+   function performAction() {
+     alert('I love you stink heheh');
+   }
+   
+   // Add a click event listener
+   headerTitle.addEventListener('click', () => {
+     clickCount++;
+   
+     // Reset the timer after each click
+     clearTimeout(timeout);
+   
+     if (clickCount === 3) {
+       performAction();
+       clickCount = 0; // Reset click count
+     } else {
+       // Set a timeout to reset click count if not clicked consecutively
+       timeout = setTimeout(() => {
+         clickCount = 0;
+       }, 500); // Adjust timeout duration if needed
+     }
+    });
+})();
